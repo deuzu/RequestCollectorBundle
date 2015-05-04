@@ -2,7 +2,7 @@
   "name": "deuzu/request-collector-bundle",
   "type": "symfony-bundle",
   "description": "",
-  "keywords": [""],
+  "keywords": ["webhook"],
   "license": "MIT",
   "authors": [
     {
