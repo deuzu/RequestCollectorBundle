@@ -1,12 +1,12 @@
 <?php
 
-namespace Deuzu\Bundle\RequestCollectorBundle\Controller;
+namespace Deuzu\RequestCollectorBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Deuzu\Bundle\RequestCollectorBundle\Event\Events;
-use Deuzu\Bundle\RequestCollectorBundle\Event\ObjectEvent;
+use Deuzu\RequestCollectorBundle\Event\Events;
+use Deuzu\RequestCollectorBundle\Event\ObjectEvent;
 
 /**
  * Class DefaultController

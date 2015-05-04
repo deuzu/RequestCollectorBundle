@@ -1,10 +1,10 @@
 <?php
 
-namespace Deuzu\Bundle\RequestCollectorBundle\Service;
+namespace Deuzu\RequestCollectorBundle\Service;
 
 use Swift_Mailer;
 use Symfony\Component\Templating\EngineInterface;
-use Deuzu\Bundle\RequestCollectorBundle\Entity\Request as RequestObject;
+use Deuzu\RequestCollectorBundle\Entity\Request as RequestObject;
 
 class Mailer
 {

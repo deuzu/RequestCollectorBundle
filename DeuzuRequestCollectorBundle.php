@@ -1,6 +1,6 @@
 <?php
 
-namespace Deuzu\Bundle\RequestCollectorBundle;
+namespace Deuzu\RequestCollectorBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Deuzu\Bundle\RequestCollectorBundle\DependencyInjection;
+namespace Deuzu\RequestCollectorBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;

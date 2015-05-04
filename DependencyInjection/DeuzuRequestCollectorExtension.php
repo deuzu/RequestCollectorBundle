@@ -1,6 +1,6 @@
 <?php
 
-namespace Deuzu\Bundle\RequestCollectorBundle\DependencyInjection;
+namespace Deuzu\RequestCollectorBundle\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;

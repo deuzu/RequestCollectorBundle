@@ -1,14 +1,14 @@
 <?php
 
-namespace Deuzu\Bundle\RequestCollectorBundle\Doctrine;
+namespace Deuzu\RequestCollectorBundle\Doctrine;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Psr\Log\LoggerInterface;
-use Deuzu\Bundle\RequestCollectorBundle\Service\Mailer;
-use Deuzu\Bundle\RequestCollectorBundle\Event\Events;
-use Deuzu\Bundle\RequestCollectorBundle\Event\ObjectEvent;
+use Deuzu\RequestCollectorBundle\Service\Mailer;
+use Deuzu\RequestCollectorBundle\Event\Events;
+use Deuzu\RequestCollectorBundle\Event\ObjectEvent;
 
 class EventSubscriber implements EventSubscriberInterface
 {

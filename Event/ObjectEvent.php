@@ -1,9 +1,9 @@
 <?php
 
-namespace Deuzu\Bundle\RequestCollectorBundle\Event;
+namespace Deuzu\RequestCollectorBundle\Event;
 
 use Symfony\Component\EventDispatcher\Event;
-use Deuzu\Bundle\RequestCollectorBundle\Entity\Request;
+use Deuzu\RequestCollectorBundle\Entity\Request;
 
 class ObjectEvent extends Event
 {

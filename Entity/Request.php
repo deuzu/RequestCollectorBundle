@@ -1,11 +1,11 @@
 <?php
 
-namespace Deuzu\Bundle\RequestCollectorBundle\Entity;
+namespace Deuzu\RequestCollectorBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="Deuzu\Bundle\RequestCollectorBundle\Repository\RequestCollectorRepository")
+ * @ORM\Entity(repositoryClass="Deuzu\RequestCollectorBundle\Repository\RequestCollectorRepository")
  * @ORM\Table(name="deuzu_request_collector_request")
  */
 class Request

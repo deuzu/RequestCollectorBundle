@@ -1,9 +1,9 @@
 <?php
 
-namespace Deuzu\Bundle\RequestCollectorBundle\Repository;
+namespace Deuzu\RequestCollectorBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
-use Deuzu\Bundle\RequestCollectorBundle\Entity\Request as RequestObject;
+use Deuzu\RequestCollectorBundle\Entity\Request as RequestObject;
 use Symfony\Component\HttpFoundation\Request;
 
 class RequestCollectorRepository extends EntityRepository

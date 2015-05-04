@@ -1,6 +1,6 @@
 <?php
 
-namespace Deuzu\Bundle\RequestCollectorBundle\Event;
+namespace Deuzu\RequestCollectorBundle\Event;
 
 final class Events
 {
