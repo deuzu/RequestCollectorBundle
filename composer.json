@@ -1,0 +1,23 @@
+{
+  "name": "deuzu/request-collector-bundle",
+  "type": "symfony-bundle",
+  "description": "",
+  "keywords": [""],
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Florian Touya",
+      "email": "florian.touya@gmail.com",
+      "homepage": "http://floriantouya.fr"
+    }
+  ],
+  "require": {
+    "php": ">=5.4",
+    "symfony/framework-bundle": "~2.6|~3.0",
+    "doctrine/orm": "~2.2,>=2.2.3",
+    "doctrine/doctrine-bundle": "~1.2",
+  },
+  "autoload": {
+    "psr-4": { "Deuzu\\RequestCollectorBundle\\": "" }
+  }
+}

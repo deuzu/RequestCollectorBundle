@@ -1,0 +1,26 @@
+services:
+    deuzu.request_collector.logger:
+        class: Monolog\Logger
+        arguments: [request_collector]
+        calls:
+            - [pushHandler, [@deuzu.request_collector.logger_handler]]
+
+    deuzu.request_collector.logger_handler:
+        class: Monolog\Handler\StreamHandler
+        arguments: [%kernel.logs_dir%/%kernel.environment%.%deuzu_request_collector.log.file%, 200]
+
+    deuzu.request_collector.mailer:
+        class: Deuzu\Bundle\RequestCollectorBundle\Service\Mailer
+        arguments: [@swiftmailer.mailer.default, @templating]
+
+    deuzu.request_collector.repository:
+        class: Deuzu\Bundle\RequestCollectorBundle\Repository\RequestCollectorRepository
+        factory_service: doctrine.orm.entity_manager
+        factory_method: getRepository
+        arguments: ['DeuzuRequestCollectorBundle:Request']
+
+    deuzu.request_collector.event_subscriber:
+        class: Deuzu\Bundle\RequestCollectorBundle\Doctrine\EventSubscriber
+        arguments: [@event_dispatcher, @doctrine, @deuzu.request_collector.logger, @deuzu.request_collector.mailer]
+        tags:
+            - { name: kernel.event_subscriber }

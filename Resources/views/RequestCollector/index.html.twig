@@ -1,0 +1,18 @@
+{% extends 'DeuzuRequestCollectorBundle::layout.html.twig' %}
+
+{% block body %}
+    {% for requestObject in requestObjects %}
+        {% if bootstrap3 is defined %}
+            {% include 'DeuzuRequestCollectorBundle:RequestCollector:bootstrap_request.html.twig' %}
+        {% else %}
+            {% include 'DeuzuRequestCollectorBundle:RequestCollector:request.html.twig' %}
+        {% endif %}
+        <hr>
+    {% endfor %}
+{% endblock body %}
+
+{% block stylesheets %}
+    {% if bootstrap3 is defined %}
+        <link rel="stylesheet" href="{{ asset(bootstrap3) }}" />
+    {% endif %}
+{% endblock stylesheets %}

@@ -1,0 +1,37 @@
+<h2>
+    {{ '#' ~ requestObject.id }}
+</h2>
+
+<p>{{ requestObject.createdAt|date('d/m/Y H:i:s') }}</p>
+
+<div class="headers">
+    <h3>Headers</h3>
+    <ul>
+    {% for header, values in requestObject.headers %}
+        <li>{{ header ~ ' => ' }}{% for value in values %}{% if not loop.first %}{{ ' | ' }}{% endif %}{{ value }}{% endfor %}</li>
+    {% endfor %}
+    </ul>
+</div>
+
+<div class="query-parameters">
+    <h3>Query Parameters</h3>
+    <ul>
+    {% for queryParam, value in requestObject.queryParameters %}
+        <li>{{ queryParam ~ ' => ' ~ value }}</li>
+    {% endfor %}
+    </ul>
+</div>
+
+<div class="post-parameters">
+    <h3>Post Parameters</h3>
+    <ul>
+    {% for postParam, value in requestObject.postParameters %}
+        <li>{{ postParam ~ ' => ' ~ value }}</li>
+    {% endfor %}
+    </ul>
+</div>
+
+<div class="content">
+    <h3>Content</h3>
+    <p>{{ requestObject.content }}</p>
+</div>
