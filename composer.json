@@ -13,9 +13,9 @@
   ],
   "require": {
     "php": ">=5.4",
-    "symfony/framework-bundle": "~2.6|~3.0",
+    "symfony/framework-bundle": "~2.6",
     "doctrine/orm": "~2.2,>=2.2.3",
-    "doctrine/doctrine-bundle": "~1.2",
+    "doctrine/doctrine-bundle": "~1.2"
   },
   "autoload": {
     "psr-4": { "Deuzu\\RequestCollectorBundle\\": "" }
