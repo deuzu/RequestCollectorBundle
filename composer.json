@@ -1,8 +1,8 @@
 {
   "name": "deuzu/request-collector-bundle",
   "type": "symfony-bundle",
-  "description": "",
-  "keywords": ["webhook"],
+  "description": "HTTP request collector",
+  "keywords": ["webhook", "HTTP request", "collector"],
   "license": "MIT",
   "authors": [
     {
