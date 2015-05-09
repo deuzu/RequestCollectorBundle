@@ -2,12 +2,6 @@ services:
     deuzu.request_collector.logger:
         class: Monolog\Logger
         arguments: [request_collector]
-        calls:
-            - [pushHandler, [@deuzu.request_collector.logger_handler]]
-
-    deuzu.request_collector.logger_handler:
-        class: Monolog\Handler\StreamHandler
-        arguments: [%kernel.logs_dir%/%kernel.environment%.request_collector.log, 200]
 
     deuzu.request_collector.mailer:
         class: Deuzu\RequestCollectorBundle\Service\Mailer

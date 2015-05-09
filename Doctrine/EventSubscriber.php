@@ -9,6 +9,7 @@ use Psr\Log\LoggerInterface;
 use Deuzu\RequestCollectorBundle\Service\Mailer;
 use Deuzu\RequestCollectorBundle\Event\Events;
 use Deuzu\RequestCollectorBundle\Event\ObjectEvent;
+use Monolog\Handler\StreamHandler;
 
 /**
  * Class EventSubscriber
@@ -71,6 +72,7 @@ class EventSubscriber implements EventSubscriberInterface
      */
     public function logRequest(ObjectEvent $objectEvent)
     {
+        $this->logger->pushHandler(new StreamHandler($objectEvent->getParams()['file']));
         $this->logger->info('request_collector.collect', $objectEvent->getObject()->toArray());
 
         $this->eventDispatcher->dispatch(Events::POST_LOG, $objectEvent);

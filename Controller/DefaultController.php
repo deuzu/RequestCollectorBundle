@@ -39,7 +39,17 @@ class DefaultController extends Controller
         }
 
         if (true === $collectorParams['log']['enabled']) {
-            $eventDispatcher->dispatch(Events::PRE_LOG, new ObjectEvent($requestObject));
+            $logFile = sprintf(
+                '%s/%s.%s',
+                $this->container->getParameter('kernel.logs_dir'),
+                $this->container->getParameter('kernel.environment'),
+                $collectorParams['log']['file']
+            );
+
+            $eventDispatcher->dispatch(
+                Events::PRE_LOG,
+                new ObjectEvent($requestObject, ['file' => $logFile])
+            );
         }
 
         if (true === $collectorParams['mail']['enabled']) {
@@ -51,9 +61,8 @@ class DefaultController extends Controller
 
         $postCollectHandlerCollection = $this->get('deuzu.request_collector.post_collect_handler_collection');
         $postCollectHandler           = $postCollectHandlerCollection->getPostCollectHandlerByName($_collectorName);
+        $response                     = null;
 
-        $response = null;
-        
         if (null !== $postCollectHandler) {
             $response = $postCollectHandler->execute($requestObject);
         }
