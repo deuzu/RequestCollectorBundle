@@ -5,6 +5,10 @@ namespace Deuzu\RequestCollectorBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
+ * Class Request
+ *
+ * @author Florian Touya <florian.touya@gmail.com>
+ *
  * @ORM\Entity(repositoryClass="Deuzu\RequestCollectorBundle\Repository\RequestCollectorRepository")
  * @ORM\Table(name="deuzu_request_collector_request")
  */

@@ -36,10 +36,17 @@ class DefaultController extends Controller
         }
 
         if (true === $requestCollectorParams['mail']['enabled']) {
-            $eventDispatcher->dispatch(Events::PRE_MAIL, new ObjectEvent($requestObject, ['email' => $requestCollectorParams['mail']['email']]));
+            $eventDispatcher->dispatch(
+                Events::PRE_MAIL,
+                new ObjectEvent($requestObject, ['email' => $requestCollectorParams['mail']['email']])
+            );
         }
 
-        return new Response(null, 200);
+        $postCollectHandlerCollection = $this->get('deuzu.request_collector.post_collect_handler_collection');
+        $postCollectHandler           = $postCollectHandlerCollection->getPostCollectHandlerByName('default');
+        $response                     = $postCollectHandler->execute($requestObject);
+
+        return $response instanceof Response ? $response : new Response(null, 200);
     }
 
     /**

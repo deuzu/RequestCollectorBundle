@@ -24,3 +24,6 @@ services:
         arguments: [@event_dispatcher, @doctrine, @deuzu.request_collector.logger, @deuzu.request_collector.mailer]
         tags:
             - { name: kernel.event_subscriber }
+
+    deuzu.request_collector.post_collect_handler_collection:
+        class: Deuzu\RequestCollectorBundle\DependencyInjection\Compiler\PostCollectHandlerCollection

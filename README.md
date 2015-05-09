@@ -5,8 +5,8 @@ The request collector bundle collects HTTP requests from various internet servic
 It exposes an URL that will persist, log and mail the incomming requests.
 You can choose how to collect requests in the configuration by enabling or disabling persisting, logging or mailling.
 The collected HTTP requests contain headers, query string parameters , post/form parameters and the body / content of the request.
-It will help you to inspect or debug webhook / api requests.
-You can also set a callback by tagging a Symfony service from your application.
+It will help you to inspect or debug webhooks / api requests.
+You can also add a your own custom service which will be executed just after the collect process by tagging a Symfony service from your application (CF Extension).
 
 ## Installation
 
@@ -23,15 +23,6 @@ $bundles = array(
 deuzu_request_collector:
     resource: "@DeuzuRequestCollectorBundle/Resources/config/routing.yml"
     prefix:   /request-collector
-```
-
-*All routes can be overrided like that*
-```yaml
-deuzu_request_collector_collect:
-    path: /your-custom-path
-    methods: ['GET', 'HEAD']
-    defaults: { _controller: DeuzuRequestCollectorBundle:Default:collect }
-
 ```
 
 
@@ -51,8 +42,8 @@ deuzu_request_collector:
         enabled: true
 ```
 
-Default value above.
-All configuration is optionnal.
+*Default value above.*
+*All configuration is optionnal.*
 
 *If you want to use the bootstrap3 css packaged in the bundle instead of yours add the bundle to Assetic :*
 *app/config/config.yml*
@@ -64,4 +55,17 @@ assetic:
 *Then install assets*
 ```bash
 $ php app/console assets:install --symlink web/
+```
+
+## Extension
+
+*Events are propagated before and after each collect (mail, log and persist).*
+*The list of available events is in the class `Deuzu\RequestCollectorBundle\Event\Events`.*
+
+*If you want to add your own custom service after the collect process all you have to do is to tag it like this :*
+```yaml
+post_collect_handler.default:
+    class: AppBundle\Service\CustomPostCollectHandler
+    tags:
+        - { name: post_collect_handler }
 ```

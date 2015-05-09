@@ -5,6 +5,11 @@ namespace Deuzu\RequestCollectorBundle\Event;
 use Symfony\Component\EventDispatcher\Event;
 use Deuzu\RequestCollectorBundle\Entity\Request;
 
+/**
+ * Class ObjectEvent
+ *
+ * @author Florian Touya <florian.touya@gmail.com>
+ */
 class ObjectEvent extends Event
 {
     /** @var Request */

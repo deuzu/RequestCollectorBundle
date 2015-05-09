@@ -6,6 +6,11 @@ use Doctrine\ORM\EntityRepository;
 use Deuzu\RequestCollectorBundle\Entity\Request as RequestObject;
 use Symfony\Component\HttpFoundation\Request;
 
+/**
+ * Class RequestCollectorRepository
+ *
+ * @author Florian Touya <florian.touya@gmail.com>
+ */
 class RequestCollectorRepository extends EntityRepository
 {
     /**

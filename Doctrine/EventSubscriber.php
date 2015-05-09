@@ -10,6 +10,11 @@ use Deuzu\RequestCollectorBundle\Service\Mailer;
 use Deuzu\RequestCollectorBundle\Event\Events;
 use Deuzu\RequestCollectorBundle\Event\ObjectEvent;
 
+/**
+ * Class EventSubscriber
+ *
+ * @author Florian Touya <florian.touya@gmail.com>
+ */
 class EventSubscriber implements EventSubscriberInterface
 {
     /** @var EventDispatcherInterface */

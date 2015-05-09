@@ -6,6 +6,11 @@ use Swift_Mailer;
 use Symfony\Component\Templating\EngineInterface;
 use Deuzu\RequestCollectorBundle\Entity\Request as RequestObject;
 
+/**
+ * Class Mailer
+ *
+ * @author Florian Touya <florian.touya@gmail.com>
+ */
 class Mailer
 {
     /** @var Swift_Mailer */

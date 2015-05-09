@@ -2,6 +2,11 @@
 
 namespace Deuzu\RequestCollectorBundle\Event;
 
+/**
+ * Class Events
+ *
+ * @author Florian Touya <florian.touya@gmail.com>
+ */
 final class Events
 {
     /** PRE_PERSIST event occurs when a Request before its persistence  */
