@@ -12,7 +12,11 @@
 {% endblock body %}
 
 {% block stylesheets %}
-    {% if bootstrap3 is defined %}
-        <link rel="stylesheet" href="{{ asset(bootstrap3) }}" />
+    {% if false == bootstrap3 or null == bootstrap3 %}
+        {% if true == bootstrap3 %}
+            <link rel="stylesheet" href="{{ asset('bundles/deuzurequestcollector/css/bootstrap.min.css') }}" />
+        {% else %}
+            <link rel="stylesheet" href="{{ asset(bootstrap3) }}" />
+        {% endif %}
     {% endif %}
 {% endblock stylesheets %}

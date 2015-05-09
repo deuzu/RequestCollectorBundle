@@ -1,9 +1,9 @@
 deuzu_request_collector_collect:
-    path: /collect
+    path: /
     methods: ['GET', 'HEAD']
     defaults: { _controller: DeuzuRequestCollectorBundle:Default:collect }
 
 deuzu_request_collector_index:
-    path: /
+    path: /inspect
     methods: ['GET', 'HEAD']
     defaults: { _controller: DeuzuRequestCollectorBundle:Default:index }

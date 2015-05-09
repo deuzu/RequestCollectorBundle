@@ -21,7 +21,6 @@ class DeuzuRequestCollectorExtension extends Extension
         $processor     = new Processor();
         $config        = $processor->processConfiguration($configuration, $configs);
         $container->setParameter('deuzu_request_collector', $config);
-        $container->setParameter('deuzu_request_collector.log.file', $config['log']['file']);
 
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');

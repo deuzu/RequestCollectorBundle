@@ -17,34 +17,46 @@ class DefaultController extends Controller
 {
     /**
      * @param Request $request
+     * @param string  $_collectorName
      *
      * @return Response
      */
-    public function collectAction(Request $request)
+    public function collectAction(Request $request, $_collectorName)
     {
         $eventDispatcher            = $this->get('event_dispatcher');
         $requestCollectorRepository = $this->get('deuzu.request_collector.repository');
         $requestCollectorParams     = $this->container->getParameter('deuzu_request_collector');
         $requestObject              = $requestCollectorRepository->createFromRequest($request);
 
-        if (true === $requestCollectorParams['database']['enabled']) {
+        if (!isset($requestCollectorParams['collector'][$_collectorName])) {
+            throw new \InvalidArgumentException(sprintf('The collector named %s cannot be found in configuration', $_collectorName));
+        }
+
+        $collectorParams = $requestCollectorParams['collector'][$_collectorName];
+
+        if (true === $collectorParams['persist']['enabled']) {
             $eventDispatcher->dispatch(Events::PRE_PERSIST, new ObjectEvent($requestObject));
         }
 
-        if (true === $requestCollectorParams['log']['enabled']) {
+        if (true === $collectorParams['log']['enabled']) {
             $eventDispatcher->dispatch(Events::PRE_LOG, new ObjectEvent($requestObject));
         }
 
-        if (true === $requestCollectorParams['mail']['enabled']) {
+        if (true === $collectorParams['mail']['enabled']) {
             $eventDispatcher->dispatch(
                 Events::PRE_MAIL,
-                new ObjectEvent($requestObject, ['email' => $requestCollectorParams['mail']['email']])
+                new ObjectEvent($requestObject, ['email' => $collectorParams['mail']['email']])
             );
         }
 
         $postCollectHandlerCollection = $this->get('deuzu.request_collector.post_collect_handler_collection');
-        $postCollectHandler           = $postCollectHandlerCollection->getPostCollectHandlerByName('default');
-        $response                     = $postCollectHandler->execute($requestObject);
+        $postCollectHandler           = $postCollectHandlerCollection->getPostCollectHandlerByName($_collectorName);
+
+        $response = null;
+        
+        if (null !== $postCollectHandler) {
+            $response = $postCollectHandler->execute($requestObject);
+        }
 
         return $response instanceof Response ? $response : new Response(null, 200);
     }
