@@ -44,7 +44,7 @@ class CollectorLoader extends Loader
     {
         $routeCollection = new RouteCollection();
 
-        foreach ($this->requestCollectorConfiguration['collector'] as $collector => $collectorConfig) {
+        foreach ($this->requestCollectorConfiguration['collectors'] as $collector => $collectorConfig) {
             $collectRoute = new Route(
                 $collectorConfig['route_path'],
                 [

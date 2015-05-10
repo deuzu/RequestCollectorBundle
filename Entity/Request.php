@@ -63,7 +63,7 @@ class Request
      *
      * @ORM\Column(type="string", length=2048)
      */
-    private $url;
+    private $uri;
 
     /**
      * @var string
@@ -216,25 +216,25 @@ class Request
     }
 
     /**
-     * Gets the value of url.
+     * Gets the value of uri.
      *
      * @return string
      */
-    public function getUrl()
+    public function getUri()
     {
-        return $this->url;
+        return $this->uri;
     }
 
     /**
-     * Sets the value of url.
+     * Sets the value of uri.
      *
-     * @param string $url the url
+     * @param string $uri the uri
      *
      * @return self
      */
-    public function setUrl($url)
+    public function setUri($uri)
     {
-        $this->url = $url;
+        $this->uri = $uri;
 
         return $this;
     }
@@ -288,6 +288,20 @@ class Request
     }
 
     /**
+     * @return string|null
+     */
+    public function getHost()
+    {
+        $headers = $this->getHeaders();
+
+        if (isset($headers['host']) && isset($headers['host'][0])) {
+            return $headers['host'][0];
+        }
+
+        return null;
+    }
+
+    /**
      * @return array
      */
     public function toArray()
@@ -295,7 +309,8 @@ class Request
         return [
             'collector'       => $this->getCollector(),
             'method'          => $this->getMethod(),
-            'url'             => $this->getUrl(),
+            'uri'             => $this->getUri(),
+            'host'            => $this->getHost(),
             'headers'         => $this->getHeaders(),
             'postParameters'  => $this->getPostParameters(),
             'queryParameters' => $this->getQueryParameters(),

@@ -27,7 +27,7 @@ class RequestCollectorRepository extends EntityRepository
         $requestObject->setQueryParameters($request->query->all());
         $requestObject->setContent($request->getContent());
         $requestObject->setCollector($collectorName);
-        $requestObject->setUrl($request->getSchemeAndHttpHost() . $request->getBaseUrl() . $request->getPathInfo());
+        $requestObject->setUri($request->getUri());
         $requestObject->setMethod($request->getMethod());
 
         return $requestObject;

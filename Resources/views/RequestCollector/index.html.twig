@@ -2,7 +2,7 @@
 
 {% block body %}
     {% for requestObject in requestObjects %}
-        {% if bootstrap3 is defined %}
+        {% if false != assets.bootstrap3_css or null != assets.bootstrap3_css %}
             {% include 'DeuzuRequestCollectorBundle:RequestCollector:bootstrap_request.html.twig' %}
         {% else %}
             {% include 'DeuzuRequestCollectorBundle:RequestCollector:request.html.twig' %}
@@ -12,11 +12,29 @@
 {% endblock body %}
 
 {% block stylesheets %}
-    {% if false != bootstrap3 or null != bootstrap3 %}
-        {% if true == bootstrap3 %}
+    {% if false != assets.bootstrap3_css or null != assets.bootstrap3_css %}
+        {% if true == assets.bootstrap3_css %}
             <link rel="stylesheet" href="{{ asset('bundles/deuzurequestcollector/css/bootstrap.min.css') }}" />
         {% else %}
-            <link rel="stylesheet" href="{{ asset(bootstrap3) }}" />
+            <link rel="stylesheet" href="{{ asset(assets.bootstrap3_css) }}" />
         {% endif %}
     {% endif %}
 {% endblock stylesheets %}
+
+{% block javascripts %}
+    {% if false != assets.jquery or null != assets.jquery %}
+        {% if true == assets.jquery %}
+            <script type="text/javascript" src="{{ asset('bundles/deuzurequestcollector/js/jquery.min.js') }}"></script>
+        {% else %}
+            <script type="text/javascript" src="{{ asset(assets.jquery) }}"></script>
+        {% endif %}
+    {% endif %}
+
+    {% if false != assets.bootstrap3_js or null != assets.bootstrap3_js %}
+        {% if true == assets.bootstrap3_js %}
+            <script type="text/javascript" src="{{ asset('bundles/deuzurequestcollector/js/bootstrap.min.js') }}"></script>
+        {% else %}
+            <script type="text/javascript" src="{{ asset(assets.bootstrap3_js) }}"></script>
+        {% endif %}
+    {% endif %}
+{% endblock javascripts %}

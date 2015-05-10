@@ -19,8 +19,15 @@ class Configuration implements ConfigurationInterface
 
         $rootNode
             ->children()
-                ->scalarNode('bootstrap3')->defaultNull()->end()
-                ->arrayNode('collector')
+                ->arrayNode('assets')
+                    ->addDefaultsIfNotSet()
+                    ->children()
+                        ->scalarNode('bootstrap3_css')->defaultNull()->end()
+                        ->scalarNode('bootstrap3_js')->defaultNull()->end()
+                        ->scalarNode('jquery')->defaultNull()->end()
+                    ->end()
+                ->end()
+                ->arrayNode('collectors')
                     ->isRequired()
                     ->requiresAtLeastOneElement()
                     ->prototype('array')

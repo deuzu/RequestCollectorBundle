@@ -1,7 +1,10 @@
 <div class="request">
-    <h2 class="{{ 'method-' ~ requestObject.method }}">{{ requestObject.method }}</h2>
-    <h3>{{ requestObject.url }}</h3>
-    <h4>{{ requestObject.createdAt|date('d/m/Y H:i:s') }}</h4>
+    <h2 class="{{ 'method-' ~ requestObject.method }}">{{ requestObject.method ~ ' - ' ~ requestObject.host }}</h2>
+    <h3>{{ requestObject.createdAt|date('d/m/Y H:i:s') }}</h3>
+    <span class="badge">{{ requestObject.headers|length }}</span>
+    <span class="badge">{{ requestObject.queryParameters|length }}</span>
+    <span class="badge">{{ requestObject.postParameters|length }}</span>
+    <span class="badge">{{ requestObject.content|length }}</span>
 
     <div class="headers">
         <h3>Headers</h3>
