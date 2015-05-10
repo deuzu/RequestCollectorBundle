@@ -25,6 +25,7 @@ class Configuration implements ConfigurationInterface
                     ->requiresAtLeastOneElement()
                     ->prototype('array')
                         ->children()
+                            ->scalarNode('route_path')->isRequired()->end()
                             ->arrayNode('persist')
                                 ->addDefaultsIfNotSet()
                                 ->children()

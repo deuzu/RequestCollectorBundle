@@ -17,22 +17,22 @@ class DefaultController extends Controller
 {
     /**
      * @param Request $request
-     * @param string  $_collectorName
+     * @param string  $_collector
      *
      * @return Response
      */
-    public function collectAction(Request $request, $_collectorName)
+    public function collectAction(Request $request, $_collector)
     {
         $eventDispatcher            = $this->get('event_dispatcher');
         $requestCollectorRepository = $this->get('deuzu.request_collector.repository');
         $requestCollectorParams     = $this->container->getParameter('deuzu_request_collector');
-        $requestObject              = $requestCollectorRepository->createFromRequest($request);
+        $requestObject              = $requestCollectorRepository->createFromRequest($request, $_collector);
 
-        if (!isset($requestCollectorParams['collector'][$_collectorName])) {
-            throw new \InvalidArgumentException(sprintf('The collector named %s cannot be found in configuration', $_collectorName));
+        if (!isset($requestCollectorParams['collector'][$_collector])) {
+            throw new \InvalidArgumentException(sprintf('The collector named %s cannot be found in configuration', $_collector));
         }
 
-        $collectorParams = $requestCollectorParams['collector'][$_collectorName];
+        $collectorParams = $requestCollectorParams['collector'][$_collector];
 
         if (true === $collectorParams['persist']['enabled']) {
             $eventDispatcher->dispatch(Events::PRE_PERSIST, new ObjectEvent($requestObject));
@@ -60,7 +60,7 @@ class DefaultController extends Controller
         }
 
         $postCollectHandlerCollection = $this->get('deuzu.request_collector.post_collect_handler_collection');
-        $postCollectHandler           = $postCollectHandlerCollection->getPostCollectHandlerByName($_collectorName);
+        $postCollectHandler           = $postCollectHandlerCollection->getPostCollectHandlerByName($_collector);
         $response                     = null;
 
         if (null !== $postCollectHandler) {
@@ -73,11 +73,11 @@ class DefaultController extends Controller
     /**
      * @return Response
      */
-    public function indexAction()
+    public function inspectAction($_collector)
     {
         $requestCollectorRepository = $this->get('deuzu.request_collector.repository');
         $requestCollectorParams     = $this->container->getParameter('deuzu_request_collector');
-        $requestObjects             = $requestCollectorRepository->findAll();
+        $requestObjects             = $requestCollectorRepository->findBy(['collector' => $_collector], ['createdAt' => 'DESC']);
         $template                   = 'DeuzuRequestCollectorBundle:RequestCollector:index.html.twig';
         $templateParams             = ['requestObjects' => $requestObjects];
 

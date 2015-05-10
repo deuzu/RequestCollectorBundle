@@ -25,6 +25,18 @@ deuzu_request_collector:
     prefix:   /request-collector
 ```
 
+*Create Doctrine schema*
+```bash
+$ php app/console doctrine:database:create
+$ php app/console doctrine:schema:create
+```
+
+*...or update it*
+
+```bash
+$ php app/console doctrine:schema:update --force
+```
+
 
 ## Configuration
 
