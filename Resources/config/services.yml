@@ -1,23 +1,29 @@
 services:
     deuzu.request_collector.logger:
         class: Monolog\Logger
-        arguments: [request_collector]
+        arguments: [ request_collector ]
 
     deuzu.request_collector.mailer:
         class: Deuzu\RequestCollectorBundle\Service\Mailer
-        arguments: [@swiftmailer.mailer.default, @templating]
+        arguments: [ @swiftmailer.mailer.default, @templating ]
 
     deuzu.request_collector.repository:
         class: Deuzu\RequestCollectorBundle\Repository\RequestCollectorRepository
         factory_service: doctrine.orm.entity_manager
         factory_method: getRepository
-        arguments: ['DeuzuRequestCollectorBundle:Request']
+        arguments: [ 'DeuzuRequestCollectorBundle:Request' ]
 
     deuzu.request_collector.event_subscriber:
         class: Deuzu\RequestCollectorBundle\Doctrine\EventSubscriber
-        arguments: [@event_dispatcher, @doctrine, @deuzu.request_collector.logger, @deuzu.request_collector.mailer]
+        arguments: [ @event_dispatcher, @doctrine, @deuzu.request_collector.logger, @deuzu.request_collector.mailer ]
         tags:
             - { name: kernel.event_subscriber }
 
     deuzu.request_collector.post_collect_handler_collection:
         class: Deuzu\RequestCollectorBundle\DependencyInjection\Compiler\PostCollectHandlerCollection
+
+    deuzu.request_collector.route_loader:
+        class: Deuzu\RequestCollectorBundle\Routing\CollectorLoader
+        arguments: [ %deuzu_request_collector% ]
+        tags:
+            - { name: routing.loader }

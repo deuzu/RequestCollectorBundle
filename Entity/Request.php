@@ -52,6 +52,27 @@ class Request
     private $content;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(type="string", length=50)
+     */
+    private $collector;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string", length=2048)
+     */
+    private $url;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string", length=10)
+     */
+    private $method;
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(type="datetime", nullable=false)
@@ -171,6 +192,78 @@ class Request
     }
 
     /**
+     * Gets the value of collector.
+     *
+     * @return string
+     */
+    public function getCollector()
+    {
+        return $this->collector;
+    }
+
+    /**
+     * Sets the value of collector.
+     *
+     * @param string $collector the collector
+     *
+     * @return self
+     */
+    public function setCollector($collector)
+    {
+        $this->collector = $collector;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of url.
+     *
+     * @return string
+     */
+    public function getUrl()
+    {
+        return $this->url;
+    }
+
+    /**
+     * Sets the value of url.
+     *
+     * @param string $url the url
+     *
+     * @return self
+     */
+    public function setUrl($url)
+    {
+        $this->url = $url;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of collector.
+     *
+     * @return string
+     */
+    public function getMethod()
+    {
+        return $this->method;
+    }
+
+    /**
+     * Sets the value of method.
+     *
+     * @param string $method the method
+     *
+     * @return self
+     */
+    public function setMethod($method)
+    {
+        $this->method = $method;
+
+        return $this;
+    }
+
+    /**
      * Gets the value of createdAt.
      *
      * @return \DateTime
@@ -200,6 +293,9 @@ class Request
     public function toArray()
     {
         return [
+            'collector'       => $this->getCollector(),
+            'method'          => $this->getMethod(),
+            'url'             => $this->getUrl(),
             'headers'         => $this->getHeaders(),
             'postParameters'  => $this->getPostParameters(),
             'queryParameters' => $this->getQueryParameters(),

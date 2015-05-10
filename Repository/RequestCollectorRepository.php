@@ -15,16 +15,20 @@ class RequestCollectorRepository extends EntityRepository
 {
     /**
      * @param Request $request
+     * @param string  $collectorName
      *
      * @return RequestObject
      */
-    public function createFromRequest(Request $request)
+    public function createFromRequest(Request $request, $collectorName)
     {
         $requestObject = new RequestObject();
         $requestObject->setHeaders($request->headers->all());
         $requestObject->setPostParameters($request->request->all());
         $requestObject->setQueryParameters($request->query->all());
         $requestObject->setContent($request->getContent());
+        $requestObject->setCollector($collectorName);
+        $requestObject->setUrl($request->getSchemeAndHttpHost() . $request->getBaseUrl() . $request->getPathInfo());
+        $requestObject->setMethod($request->getMethod());
 
         return $requestObject;
     }

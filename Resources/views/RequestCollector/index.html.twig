@@ -12,7 +12,7 @@
 {% endblock body %}
 
 {% block stylesheets %}
-    {% if false == bootstrap3 or null == bootstrap3 %}
+    {% if false != bootstrap3 or null != bootstrap3 %}
         {% if true == bootstrap3 %}
             <link rel="stylesheet" href="{{ asset('bundles/deuzurequestcollector/css/bootstrap.min.css') }}" />
         {% else %}

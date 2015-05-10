@@ -1,9 +1,7 @@
 <div class="request">
-    <h2>
-        {{ '#' ~ requestObject.id }}{% if requestObject.headers.host is defined %}{{ ' : ' ~ requestObject.headers.host.0 }}{% endif %}
-    </h2>
-
-    <p>{{ requestObject.createdAt|date('d/m/Y H:i:s') }}</p>
+    <h2 class="{{ 'method-' ~ requestObject.method }}">{{ requestObject.method }}</h2>
+    <h3>{{ requestObject.url }}</h3>
+    <h4>{{ requestObject.createdAt|date('d/m/Y H:i:s') }}</h4>
 
     <div class="headers">
         <h3>Headers</h3>
