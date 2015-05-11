@@ -28,11 +28,11 @@ class DefaultController extends Controller
         $requestCollectorParams     = $this->container->getParameter('deuzu_request_collector');
         $requestObject              = $requestCollectorRepository->createFromRequest($request, $_collector);
 
-        if (!isset($requestCollectorParams['collector'][$_collector])) {
+        if (!isset($requestCollectorParams['collectors'][$_collector])) {
             throw new \InvalidArgumentException(sprintf('The collector named %s cannot be found in configuration', $_collector));
         }
 
-        $collectorParams = $requestCollectorParams['collector'][$_collector];
+        $collectorParams = $requestCollectorParams['collectors'][$_collector];
 
         if (true === $collectorParams['persist']['enabled']) {
             $eventDispatcher->dispatch(Events::PRE_PERSIST, new ObjectEvent($requestObject));
