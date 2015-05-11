@@ -1,11 +1,13 @@
 Request Collector Bundle
 ------------------------
 
-The request collector bundle collects HTTP requests from various internet services (webhooks, api).
-It exposes an URL that will persist, log and mail the incomming requests.
-You can choose how to collect requests in the configuration by enabling or disabling persisting, logging or mailling.
+The request collector bundle collects HTTP requests from various internet services (webhooks, api) or local calls.  
+It exposes an URL that will persist, log and mail the incomming requests.  
+You can choose how to collect requests in the configuration by enabling or disabling persisting, logging or mailling.  
 The collected HTTP requests contain headers, query string parameters , post/form parameters and the body / content of the request.
-It will help you to inspect or debug webhooks / api requests.
+
+It will help you to inspect or debug webhooks / api requests.  
+
 You can also add a your own custom service which will be executed just after the collect process by tagging a Symfony service from your application (CF Extension).
 
 ## Installation
@@ -21,11 +23,20 @@ $bundles = array(
 *app/config/routing.yml*
 ```yaml
 deuzu_request_collector:
-    resource: "@DeuzuRequestCollectorBundle/Resources/config/routing.yml"
-    prefix:   /request-collector
+    resource: .
+    type: request_collector
 ```
 
-*Create Doctrine schema*
+*app/config/config.yml*
+```yaml
+deuzu_request_collector:
+    collectors:
+        default:
+            route_path: /request-collector/collect
+```
+*You need to configure one collector and its route_path. By default the collector only persists the request.*
+
+*Create Doctrine schema if needed*
 ```bash
 $ php app/console doctrine:database:create
 $ php app/console doctrine:schema:create
@@ -37,27 +48,33 @@ $ php app/console doctrine:schema:create
 $ php app/console doctrine:schema:update --force
 ```
 
+*You're done. To test it try to access a configured URL and then add /inspect at the and to see persisted requests. Logs are located in app/logs/ and named by default request_collector.log*
 
 ## Configuration
 
 *app/config/config.yml*
 ```yaml
 deuzu_request_collector:
-    bootstrap3: bundles/deuzurequestcollector/css/bootstrap.min.css
-    log:
-        enabled: false
-        file: request_collector.log
-    mail:
-        enabled: false
-        email: florian.touya@gmail.com
-    database:
-        enabled: true
+    assets:
+        bootstrap3_css: true # or bundles/your_app/css/bootstrap.min.css
+        bootstrap3_js: true  # or bundles/your_app/js/bootstrap.min.js
+        jquery: true         # or bundles/your_app/js/jquery.min.js
+    collectors:
+        default:
+            route_path: /what/ever/you/want
+        github:
+            route_path: /github/webhook
+            log:
+                enabled: true
+                file: github_collector.log # app/logs/github_collector.log
+            mail:
+                enabled: true
+                email: florian.touya@gmail.com
+            persist:
+                enabled: true
 ```
 
-*Default value above.*
-*All configuration is optionnal.*
-
-*If you want to use the bootstrap3 css packaged in the bundle instead of yours add the bundle to Assetic :*
+*If you want to use jQuery and Bootstrap3 packaged in the bundle instead of yours add the bundle to Assetic :*
 *app/config/config.yml*
 ```yaml
 assetic:
