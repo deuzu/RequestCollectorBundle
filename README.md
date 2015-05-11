@@ -48,7 +48,7 @@ $ php app/console doctrine:schema:create
 $ php app/console doctrine:schema:update --force
 ```
 
-*You're done. To test it try to access a configured URL and then add /inspect at the and to see persisted requests. Logs are located in app/logs/ and named by default request_collector.log*
+*You're done. To test it try to access a configured URL and then add /inspect at the end to see the persisted requests. Logs are located in app/logs/ and named by default request_collector.log*
 
 ## Configuration
 
