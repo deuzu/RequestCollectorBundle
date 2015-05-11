@@ -81,3 +81,12 @@ post_collect_handler.default:
     tags:
         - { name: post_collect_handler }
 ```
+
+
+## TODO
+   * Better doc
+   * Improve templates
+      * toggle with title
+      * copy full URL (+ cURL ?)
+      * improve colors badge and labels
+   * fix display for array in query string
