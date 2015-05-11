@@ -1,54 +1,82 @@
-<div class="request">
-    <h2 class="{{ 'method-' ~ requestObject.method }}">{{ requestObject.method ~ ' - ' ~ requestObject.host }}</h2>
-    <h3>{{ requestObject.createdAt|date('d/m/Y H:i:s') }}</h3>
-    <span class="badge">{{ requestObject.headers|length }}</span>
-    <span class="badge">{{ requestObject.queryParameters|length }}</span>
-    <span class="badge">{{ requestObject.postParameters|length }}</span>
-    <span class="badge">{{ requestObject.content|length }}</span>
+{% macro arrayParameters(parameters) %}
+    {% for queryParameter, value in parameters if parameters is not empty %}
+        <tr>
+            <td>{{ queryParameter }}</td>
+            {% if value is not empty %}
+                {{ _self.arrayParameters(value) }}
+            {% else %}
+                <td>{{ value }}</td>
+            {% endif %}
+        </tr>
+    {% else %}
+        <tr><td colspan="2">None</td></tr>
+    {% endfor %}
+{% endmacro %}
 
-    <div class="headers">
-        <h3>Headers</h3>
-        <table class="table table-striped table-bordered">
-            {% for header, values in requestObject.headers %}
-                <tr>
-                    <td>{{ header }}</td>
-                    <td>{% for value in values %}{% if not loop.first %}{{ ' | ' }}{% endif %}{{ value }}{% endfor %}</td>
-                </tr>
-            {% endfor %}
-        </table>
+{% import _self as macro %}
+
+<div class="request well">
+    <div class="request-header">
+        <h2 class="{{ 'method-' ~ requestObject.method }}">{{ requestObject.method ~ ' - ' ~ requestObject.host }}</h2>
+        <div class="request-sumup pull-right active">
+            <span>H </span><span class="badge">{{ requestObject.headers|length }}</span>
+            <span>Q </span><span class="badge">{{ requestObject.queryParameters|length }}</span>
+            <span>P </span><span class="badge">{{ requestObject.postParameters|length }}</span>
+            <span>C </span><span class="badge">{{ requestObject.content|length }}</span>
+        </div>
+
+        <p>{{ requestObject.createdAt|date('d/m/Y H:i:s') }}</p>
+    </div>
+
+    <div class="request-content hide" role="tab-panel">
+        <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active">
+                <a href="#request-{{ requestObject.id }}-headers" data-togle="tab" aria-controls="request-{{ requestObject.id }}-headers">Headers</a>
+            </li>
+            <li role="presentation">
+                <a href="#request-{{ requestObject.id }}-query-parameters" data-togle="tab" aria-controls="request-{{ requestObject.id }}-query-parameters">Query Parameters</a>
+            </li>
         </ul>
-    </div>
 
-    <div class="query-parameters">
-        <h3>Query Parameters</h3>
-        <table class="table table-striped table-bordered">
-            {% for queryParameter, value in requestObject.queryParameters if requestObject.queryParameters is not empty %}
-                <tr>
-                    <td>{{ queryParameter }}</td>
-                    <td>{{ value }}</td>
-                </tr>
-            {% else %}
-                <tr><td colspan="2">None</td></tr>
-            {% endfor %}
-        </table>
-    </div>
+        <div class="tab-content">
+            <div id="request-{{ requestObject.id }}-headers" class="tab-pane">
+                <h3><span class="badge">{{ requestObject.headers|length }}</span> Headers</h3>
+                <table class="table table-striped">
+                    {% for header, values in requestObject.headers %}
+                        <tr>
+                            <td>{{ header }}</td>
+                            <td>{% for value in values %}{% if not loop.first %}{{ ' | ' }}{% endif %}{{ value }}{% endfor %}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+                </ul>
+            </div>
 
-    <div class="post-parameters">
-        <h3>Post Parameters</h3>
-        <table class="table table-striped table-bordered">
-            {% for postParameter, value in requestObject.postParameters if requestObject.postParameters is not empty %}
-                <tr>
-                    <td>{{ postParameter }}</td>
-                    <td>{{ value }}</td>
-                </tr>
-            {% else %}
-                <tr><td colspan="2">None</td></tr>
-            {% endfor %}
-        </table>
-    </div>
+            <div id="request-{{ requestObject.id }}-query-parameters" class="tab-pane active">
+                <h3><span class="badge">{{ requestObject.queryParameters|length }}</span> Query Parameters</h3>
+                <table class="table table-striped">
+                    {{ macro.arrayParameters(requestObject.queryParameters) }}
+                </table>
+            </div>
 
-    <div class="content">
-        <h3>Content</h3>
-        <p>{{ requestObject.content|default('Empty') }}</p>
+            <div id="request-{{ requestObject.id }}-post-parameters" class="tab-pane">
+                <h3><span class="badge">{{ requestObject.postParameters|length }}</span> Post Parameters</h3>
+                <table class="table table-striped">
+                    {% for postParameter, value in requestObject.postParameters if requestObject.postParameters is not empty %}
+                        <tr>
+                            <td>{{ postParameter }}</td>
+                            <td>{{ value }}</td>
+                        </tr>
+                    {% else %}
+                        <tr><td colspan="2">None</td></tr>
+                    {% endfor %}
+                </table>
+            </div>
+
+            <div id="request-{{ requestObject.id }}-content" class="tab-pane">
+                <h3><span class="badge">{{ requestObject.content|length }}</span> Content</h3>
+                <p>{{ requestObject.content|default('Empty') }}</p>
+            </div>
+        </div>
     </div>
 </div>
