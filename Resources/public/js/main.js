@@ -1,4 +1,10 @@
 $(document).ready(function() {
+    $('.tab a').on('click', function(e) {
+        console.log('dsaddsa');
+        e.preventDefault();
+        $(this).tab('show');
+    });
+
     $('.request-header').on('click', function () {
         $requestSumup   = $(this).find('.request-sumup');
         $requestContent = $(this).siblings('.request-content');

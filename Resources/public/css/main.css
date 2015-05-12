@@ -2,6 +2,31 @@
     padding-top: 15px;
 }
 
+.method {
+    font-weight: bold;
+    margin-right: 7px;
+}
+
+.method.get, .method.head {
+    color: green;
+}
+
+.method.post, .method.put, .method.patch {
+    color: yellow;
+}
+
+.method.delete {
+    color: red;
+}
+
+.host {
+    font-style: italic;
+}
+
 .request-header h2 {
     display: inline;
+}
+
+.tab-content {
+    margin-top: 15px;
 }

@@ -1,10 +1,16 @@
-{% macro arrayParameters(parameters) %}
+{% macro arrayParameters(parameters, queryParameterArray = null, nested = false) %}
     {% for queryParameter, value in parameters if parameters is not empty %}
         <tr>
-            <td>{{ queryParameter }}</td>
-            {% if value is not empty %}
-                {{ _self.arrayParameters(value) }}
+            {% if nested %}
+                {% set queryParameterArray = queryParameterArray ~ '[' ~ queryParameter ~ ']' %}
             {% else %}
+                {% set queryParameterArray = queryParameter %}
+            {% endif %}
+
+            {% if value is iterable %}
+                {{ _self.arrayParameters(value, queryParameterArray, true) }}
+            {% else %}
+                <td>{{ queryParameterArray }}</td>
                 <td>{{ value }}</td>
             {% endif %}
         </tr>
@@ -17,7 +23,7 @@
 
 <div class="request well">
     <div class="request-header">
-        <h2 class="{{ 'method-' ~ requestObject.method }}">{{ requestObject.method ~ ' - ' ~ requestObject.host }}</h2>
+        <h2><span class="{{ 'method ' ~ requestObject.method|lower }}">{{ requestObject.method }}</span><span class="host">{{ requestObject.host }}</span></h2>
         <div class="request-sumup pull-right active">
             <span>H </span><span class="badge">{{ requestObject.headers|length }}</span>
             <span>Q </span><span class="badge">{{ requestObject.queryParameters|length }}</span>
@@ -29,18 +35,33 @@
     </div>
 
     <div class="request-content hide" role="tab-panel">
-        <ul class="nav nav-tabs" role="tablist">
+        <ul class="nav nav-pills tab" role="tablist">
             <li role="presentation" class="active">
-                <a href="#request-{{ requestObject.id }}-headers" data-togle="tab" aria-controls="request-{{ requestObject.id }}-headers">Headers</a>
+                <a href="#request-{{ requestObject.id }}-headers" role="tab" data-togle="tab" aria-controls="request-{{ requestObject.id }}-headers">
+                    <span class="badge">{{ requestObject.headers|length }}</span> Headers
+                </a>
             </li>
             <li role="presentation">
-                <a href="#request-{{ requestObject.id }}-query-parameters" data-togle="tab" aria-controls="request-{{ requestObject.id }}-query-parameters">Query Parameters</a>
+                <a href="#request-{{ requestObject.id }}-query-parameters" role="tab" data-togle="tab" aria-controls="request-{{ requestObject.id }}-query-parameters">
+                    <span class="badge">{{ requestObject.queryParameters|length }}</span> Query Parameters
+                </a>
+            </li>
+            </li>
+            <li role="presentation">
+                <a href="#request-{{ requestObject.id }}-post-parameters" role="tab" data-togle="tab" aria-controls="request-{{ requestObject.id }}-post-parameters">
+                    <span class="badge">{{ requestObject.postParameters|length }}</span> Post Parameters
+                </a>
+            </li>
+            </li>
+            <li role="presentation">
+                <a href="#request-{{ requestObject.id }}-content" role="tab" data-togle="tab" aria-controls="request-{{ requestObject.id }}-content">
+                    <span class="badge">{{ requestObject.content|length }}</span> Content
+                </a>
             </li>
         </ul>
 
         <div class="tab-content">
-            <div id="request-{{ requestObject.id }}-headers" class="tab-pane">
-                <h3><span class="badge">{{ requestObject.headers|length }}</span> Headers</h3>
+            <div id="request-{{ requestObject.id }}-headers" class="tab-pane active">
                 <table class="table table-striped">
                     {% for header, values in requestObject.headers %}
                         <tr>
@@ -52,15 +73,13 @@
                 </ul>
             </div>
 
-            <div id="request-{{ requestObject.id }}-query-parameters" class="tab-pane active">
-                <h3><span class="badge">{{ requestObject.queryParameters|length }}</span> Query Parameters</h3>
+            <div id="request-{{ requestObject.id }}-query-parameters" class="tab-pane">
                 <table class="table table-striped">
                     {{ macro.arrayParameters(requestObject.queryParameters) }}
                 </table>
             </div>
 
             <div id="request-{{ requestObject.id }}-post-parameters" class="tab-pane">
-                <h3><span class="badge">{{ requestObject.postParameters|length }}</span> Post Parameters</h3>
                 <table class="table table-striped">
                     {% for postParameter, value in requestObject.postParameters if requestObject.postParameters is not empty %}
                         <tr>
@@ -74,7 +93,6 @@
             </div>
 
             <div id="request-{{ requestObject.id }}-content" class="tab-pane">
-                <h3><span class="badge">{{ requestObject.content|length }}</span> Content</h3>
                 <p>{{ requestObject.content|default('Empty') }}</p>
             </div>
         </div>
