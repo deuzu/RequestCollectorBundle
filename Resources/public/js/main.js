@@ -8,9 +8,9 @@ $(document).ready(function() {
         $(this).tab('show');
     });
 
-    $('.request-header').on('click', function () {
-        $requestSumup   = $(this).find('.request-sumup');
-        $requestContent = $(this).siblings('.request-content');
+    $('.request-toggle').on('click', function () {
+        $requestSumup   = $(this).parent('.request-header').find('.request-sumup');
+        $requestContent = $(this).parent('.request-header').siblings('.request-content');
 
         if ($requestContent.hasClass('hide')) {
             $requestContent.removeClass('hide').addClass('active');

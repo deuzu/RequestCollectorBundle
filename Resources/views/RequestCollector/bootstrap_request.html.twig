@@ -1,6 +1,28 @@
+{% macro mapMethodClass(method) %}
+    {% if 'get' == method %}
+        request-method label label-success
+    {% elseif 'post' == method %}
+        request-method label label-warning
+    {% elseif 'delete' == method %}
+        request-method label label-danger
+    {% elseif 'put' == method %}
+        request-method label label-primary
+    {% elseif 'patch' == method %}
+        request-method label label-info
+    {% else %}
+        request-method label label-default
+    {% endif %}
+{% endmacro %}
+
+{% import _self as macros %}
+
 <div class="request well">
     <div class="request-header">
-        <h2><span class="{{ 'method ' ~ requestObject.method|lower }}">{{ requestObject.method }}</span><span class="host">{{ requestObject.host }}</span></h2>
+        <h2>
+            <span class="{{ macros.mapMethodClass(requestObject.method|lower) }}">{{ requestObject.method }}</span>
+            <span class="request-host">{{ requestObject.host }}</span>
+        </h2>
+
         <div class="request-sumup pull-right active">
             <span>H </span><span class="badge">{{ requestObject.headers|length }}</span>
             <span>Q </span><span class="badge">{{ requestObject.queryParameters|length }}</span>
@@ -8,9 +30,17 @@
             <span>C </span><span class="badge">{{ requestObject.content|length }}</span>
         </div>
 
-        <p>{{ requestObject.createdAt|date('d/m/Y H:i:s') }}</p>
-        <button class="clipboard-copy btn" data-clipboard-text="{{ requestObject.uri }}">URI</button>
-        <button class="clipboard-copy btn" data-clipboard-text="{{ requestObject|curl }}">cURL</button>
+        <p class="request-date">{{ requestObject.createdAt|date('d/m/Y H:i:s') }}</p>
+
+        <div class="actions">
+            <button class="clipboard-copy btn" data-clipboard-text="{{ requestObject.uri }}"><i class="fa fa-clipboard"></i> URI</button>
+            <button class="clipboard-copy btn" data-clipboard-text="{{ requestObject|curl }}"><i class="fa fa-clipboard"></i> cURL</button>
+        </div>
+
+        <div class="request-toggle">
+            <i class="fa fa-chevron-down"></i>
+            <i class="fa fa-chevron-up hide"></i>
+        </div>
     </div>
 
     <div class="request-content hide" role="tab-panel">

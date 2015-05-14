@@ -2,29 +2,35 @@
     padding-top: 15px;
 }
 
-.method {
+.request-method {
     font-weight: bold;
     margin-right: 7px;
 }
 
-.method.get, .method.head {
-    color: green;
-}
-
-.method.post, .method.put, .method.patch {
-    color: yellow;
-}
-
-.method.delete {
-    color: red;
-}
-
-.host {
+.reuqest-host {
     font-style: italic;
+}
+
+.request-date {
+    margin-top: 15px
+}
+
+.request-header {
+    position: relative;
 }
 
 .request-header h2 {
     display: inline;
+}
+
+.request-toggle {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+}
+
+.request-content {
+    margin-top: 15px
 }
 
 .tab-content {
