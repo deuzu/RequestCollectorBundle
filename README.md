@@ -102,5 +102,8 @@ post_collect_handler.default:
 
 ## TODO
    * Better doc
+   * Replace Entity with Model
    * Improve templates
-      * copy full URL (+ cURL ?)
+      * Add Font awesome
+      * Update methods colors
+  * Assets install composer post install / update scripts

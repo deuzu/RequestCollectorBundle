@@ -1,26 +1,3 @@
-{% macro arrayParameters(parameters, queryParameterArray = null, nested = false) %}
-    {% for queryParameter, value in parameters if parameters is not empty %}
-        <tr>
-            {% if nested %}
-                {% set queryParameterArray = queryParameterArray ~ '[' ~ queryParameter ~ ']' %}
-            {% else %}
-                {% set queryParameterArray = queryParameter %}
-            {% endif %}
-
-            {% if value is iterable %}
-                {{ _self.arrayParameters(value, queryParameterArray, true) }}
-            {% else %}
-                <td>{{ queryParameterArray }}</td>
-                <td>{{ value }}</td>
-            {% endif %}
-        </tr>
-    {% else %}
-        <tr><td colspan="2">None</td></tr>
-    {% endfor %}
-{% endmacro %}
-
-{% import _self as macro %}
-
 <div class="request well">
     <div class="request-header">
         <h2><span class="{{ 'method ' ~ requestObject.method|lower }}">{{ requestObject.method }}</span><span class="host">{{ requestObject.host }}</span></h2>
@@ -32,6 +9,8 @@
         </div>
 
         <p>{{ requestObject.createdAt|date('d/m/Y H:i:s') }}</p>
+        <button class="clipboard-copy btn" data-clipboard-text="{{ requestObject.uri }}">URI</button>
+        <button class="clipboard-copy btn" data-clipboard-text="{{ requestObject|curl }}">cURL</button>
     </div>
 
     <div class="request-content hide" role="tab-panel">
@@ -75,13 +54,20 @@
 
             <div id="request-{{ requestObject.id }}-query-parameters" class="tab-pane">
                 <table class="table table-striped">
-                    {{ macro.arrayParameters(requestObject.queryParameters) }}
+                    {% for queryParameter, value in requestObject.getQueryParameters|formatParameters if requestObject.getQueryParameters is not empty %}
+                        <tr>
+                            <td>{{ queryParameter }}</td>
+                            <td>{{ value }}</td>
+                        </tr>
+                    {% else %}
+                        <tr><td colspan="2">None</td></tr>
+                    {% endfor %}
                 </table>
             </div>
 
             <div id="request-{{ requestObject.id }}-post-parameters" class="tab-pane">
                 <table class="table table-striped">
-                    {% for postParameter, value in requestObject.postParameters if requestObject.postParameters is not empty %}
+                    {% for postParameter, value in requestObject.getPostParameters|formatParameters if requestObject.getPostParameters is not empty %}
                         <tr>
                             <td>{{ postParameter }}</td>
                             <td>{{ value }}</td>

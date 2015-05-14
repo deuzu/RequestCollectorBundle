@@ -78,12 +78,13 @@ class DefaultController extends Controller
         $requestCollectorRepository = $this->get('deuzu.request_collector.repository');
         $requestCollectorParams     = $this->container->getParameter('deuzu_request_collector');
         $requestObjects             = $requestCollectorRepository->findBy(['collector' => $_collector], ['createdAt' => 'DESC']);
-        $template                   = 'DeuzuRequestCollectorBundle:RequestCollector:index.html.twig';
-        $templateParams             = [
-            'requestObjects' => $requestObjects,
-            'assets'         => $requestCollectorParams['assets']
-        ];
 
-        return $this->render($template, $templateParams);
+        return $this->render(
+            'DeuzuRequestCollectorBundle:RequestCollector:index.html.twig',
+            [
+                'requestObjects' => $requestObjects,
+                'assets'         => $requestCollectorParams['assets']
+            ]
+        );
     }
 }

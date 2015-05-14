@@ -1,6 +1,9 @@
 $(document).ready(function() {
+    $('.clipboard-copy').each(function(index, element) {
+        new ZeroClipboard(element);
+    });
+
     $('.tab a').on('click', function(e) {
-        console.log('dsaddsa');
         e.preventDefault();
         $(this).tab('show');
     });

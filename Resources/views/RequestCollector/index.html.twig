@@ -22,6 +22,7 @@
 {% endblock stylesheets %}
 
 {% block javascripts %}
+    <script type="text/javascript" src="{{ asset('bundles/deuzurequestcollector/js/ZeroClipboard.min.js') }}"></script>
     {% if false != assets.jquery or null != assets.jquery %}
         {% if true == assets.jquery %}
             <script type="text/javascript" src="{{ asset('bundles/deuzurequestcollector/js/jquery.min.js') }}"></script>

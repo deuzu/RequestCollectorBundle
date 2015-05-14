@@ -27,3 +27,9 @@ services:
         arguments: [ %deuzu_request_collector% ]
         tags:
             - { name: routing.loader }
+
+    deuzu.request_collector.twig_extension:
+        class:  Deuzu\RequestCollectorBundle\Twig\DeuzuRequestCollectorExtension
+        # public: false
+        tags:
+            - { name: twig.extension }
