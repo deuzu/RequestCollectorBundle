@@ -16,6 +16,12 @@
 
 {% import _self as macros %}
 
+<div id="alert-template" class="alert alert-info alert-dismissible hide" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <p class="message"></p>
+    <p class="copied-text"></p>
+</div>
+
 <div class="request well">
     <div class="request-header">
         <h2>
@@ -33,12 +39,16 @@
         <p class="request-date">{{ requestObject.createdAt|date('d/m/Y H:i:s') }}</p>
 
         <div class="actions">
-            <button class="clipboard-copy btn" data-clipboard-text="{{ requestObject.uri }}"><i class="fa fa-clipboard"></i> URI</button>
-            <button class="clipboard-copy btn" data-clipboard-text="{{ requestObject|curl }}"><i class="fa fa-clipboard"></i> cURL</button>
+            <button class="clipboard-copy btn uri" data-clipboard-text="{{ requestObject.uri }}" data-info-message="The URI has been copied to your clipboard.">
+                <i class="fa fa-clipboard"></i> URI
+            </button>
+            <button class="clipboard-copy btn curl" data-clipboard-text="{{ requestObject|curl }}" data-info-message="The cURL command has been copied to your clipboard.">
+                <i class="fa fa-clipboard"></i> cURL
+            </button>
         </div>
 
         <div class="request-toggle">
-            <i class="fa fa-chevron-down"></i>
+            <i class="fa fa-chevron-down active"></i>
             <i class="fa fa-chevron-up hide"></i>
         </div>
     </div>

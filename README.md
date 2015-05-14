@@ -105,5 +105,6 @@ post_collect_handler.default:
    * Replace Entity with Model
    * Improve templates
       * pagination
+      * filters
    * Add translations
    * Assets install composer post install / update scripts
