@@ -47,10 +47,16 @@ class Configuration implements ConfigurationInterface
                                 ->end()
                             ->end()
                             ->arrayNode('mail')
+                                ->beforeNormalization()
+                                    ->ifTrue(function($v) {
+                                        return $v['enabled'] && !isset($v['email']);
+                                    })
+                                    ->thenInvalid('The child node "email" under the node "mail" of your collector must be configured.')
+                                ->end()
                                 ->addDefaultsIfNotSet()
                                 ->children()
                                     ->booleanNode('enabled')->defaultFalse()->end()
-                                    ->scalarNode('email')->isRequired()->end()
+                                    ->scalarNode('email')->end()
                                 ->end()
                             ->end()
                         ->end()
