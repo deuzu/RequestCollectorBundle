@@ -1,7 +1,7 @@
 Request Collector Bundle
 ------------------------
 
-The request collector bundle collects HTTP requests from various internet services (webhooks, api) or local calls.  
+The request collector Symfony2 bundle collects HTTP requests from various internet services (webhooks, api) or local calls.  
 It exposes an URL that will persist, log and mail the incomming requests.  
 You can choose how to collect requests in the configuration by enabling or disabling persisting, logging or mailling.  
 The collected HTTP requests contain headers, query string parameters , post/form parameters and the body / content of the request.
@@ -9,6 +9,7 @@ The collected HTTP requests contain headers, query string parameters , post/form
 It will help you to inspect or debug webhooks / api requests.  
 
 You can also add a your own custom service which will be executed just after the collect process by tagging a Symfony service from your application (CF Extension).
+
 
 ## Installation
 
@@ -50,6 +51,7 @@ $ php app/console doctrine:schema:update --force
 
 *You're done. To test it try to access a configured URL and then add /inspect at the end to see the persisted requests. Logs are located in app/logs/ and named by default request_collector.log*
 
+
 ## Configuration
 
 *app/config/config.yml*
@@ -74,17 +76,6 @@ deuzu_request_collector:
                 enabled: true
 ```
 
-*If you want to use jQuery and Bootstrap3 packaged in the bundle instead of yours add the bundle to Assetic :*
-*app/config/config.yml*
-```yaml
-assetic:
-    bundles: [ DeuzuRequestCollectorBundle ]
-```
-
-*Then install assets*
-```bash
-$ php app/console assets:install --symlink web/
-```
 
 ## Extension
 
@@ -96,15 +87,19 @@ $ php app/console assets:install --symlink web/
 post_collect_handler.default:
     class: AppBundle\Service\CustomPostCollectHandler
     tags:
-        - { name: post_collect_handler }
+        - { name: post_collect_handler, alias: collector_name }
 ```
+*Your custom service must implements Deuzu\RequestCollectorBundle\PostCollectHandler\PostCollectHandlerInterface*
 
 
 ## TODO
+   * Tests
    * Better doc
    * Replace Entity with Model
+   * Menu with differents collectors
+      * button to copy address which collects
+      * Inspect all collector action
    * Improve templates
       * pagination
       * filters
    * Add translations
-   * Assets install composer post install / update scripts

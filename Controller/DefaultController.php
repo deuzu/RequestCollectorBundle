@@ -71,13 +71,25 @@ class DefaultController extends Controller
     }
 
     /**
+     * @param Request $request
+     *
      * @return Response
      */
-    public function inspectAction($_collector)
+    public function inspectAction(Request $request, $_collector)
     {
+        $page                       = $request->query->get('page', 1);
         $requestCollectorRepository = $this->get('deuzu.request_collector.repository');
         $requestCollectorParams     = $this->container->getParameter('deuzu_request_collector');
-        $requestObjects             = $requestCollectorRepository->findBy(['collector' => $_collector], ['createdAt' => 'DESC']);
+
+        if (!isset($requestCollectorParams['collectors'][$_collector])) {
+            throw new \InvalidArgumentException(sprintf('The collector named %s cannot be found in configuration', $_collector));
+        }
+
+        $requestObjects = $requestCollectorRepository->findByCollector(
+            $_collector,
+            $page,
+            $requestCollectorParams['collectors'][$_collector]['item_per_page']
+        );
 
         return $this->render(
             'DeuzuRequestCollectorBundle:RequestCollector:index.html.twig',

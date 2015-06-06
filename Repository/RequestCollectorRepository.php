@@ -5,6 +5,7 @@ namespace Deuzu\RequestCollectorBundle\Repository;
 use Doctrine\ORM\EntityRepository;
 use Deuzu\RequestCollectorBundle\Entity\Request as RequestObject;
 use Symfony\Component\HttpFoundation\Request;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 
 /**
  * Class RequestCollectorRepository
@@ -44,5 +45,25 @@ class RequestCollectorRepository extends EntityRepository
         if ($doFlush) {
             $this->_em->flush();
         }
+    }
+
+    public function findByCollector($collector, $page, $maxItemPerPage)
+    {
+        $query = $this
+            ->createQueryBuilder('c')
+            ->where('c.collector = :collector')
+            ->setParameter('collector', $collector)
+            ->orderBy('c.createdAt', 'DESC')
+            ->getQuery()
+        ;
+
+        $paginator = new Paginator($query);
+        $paginator
+            ->getQuery()
+            ->setFirstResult($maxItemPerPage * ($page - 1))
+            ->setMaxResults($maxItemPerPage)
+        ;
+
+        return $paginator;
     }
 }
