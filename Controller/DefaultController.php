@@ -85,17 +85,21 @@ class DefaultController extends Controller
             throw new \InvalidArgumentException(sprintf('The collector named %s cannot be found in configuration', $_collector));
         }
 
-        $requestObjects = $requestCollectorRepository->findByCollector(
+        $paginator = $requestCollectorRepository->findByCollector(
             $_collector,
             $page,
-            $requestCollectorParams['collectors'][$_collector]['item_per_page']
+            $requestCollectorParams['collectors'][$_collector]['items_per_page']
         );
+
+        // dump($paginator->count());die();
 
         return $this->render(
             'DeuzuRequestCollectorBundle:RequestCollector:index.html.twig',
             [
-                'requestObjects' => $requestObjects,
-                'assets'         => $requestCollectorParams['assets']
+                'paginator'      => $paginator,
+                'assets'         => $requestCollectorParams['assets'],
+                'page'           => $page,
+                'itemsPerPage'   => $requestCollectorParams['collectors'][$_collector]['items_per_page']
             ]
         );
     }

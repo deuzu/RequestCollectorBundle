@@ -1,29 +1,50 @@
 {% extends 'DeuzuRequestCollectorBundle::layout.html.twig' %}
 
+{% macro displayPaginationLinks(disabled, path, label, content) %}
+    <li {% if disabled %}class="disabled"{% endif %}>
+        {% if not disabled %}
+            <a href="{{ path }}" aria-label="{{ label }}">
+                <span aria-hidden="true">{{ content|raw }}</span>
+            </a>
+        {% else %}
+            <span aria-hidden="true">{{ content|raw }}</span>
+        {% endif %}
+    </li>
+{% endmacro %}
+
+{% import _self as self %}
+
 {% block body %}
-    {% for requestObject in requestObjects %}
+    {% for requestObject in paginator %}
         {% include 'DeuzuRequestCollectorBundle:RequestCollector:bootstrap_request.html.twig' %}
     {% endfor %}
 
-    <!-- <nav>
+    <nav>
         <ul class="pagination">
+            {{ self.displayPaginationLinks(
+                page  <= 1,
+                path(app.request.attributes.get('_route'), {page: page - 1}),
+                "Previous",
+                "&laquo;"
+            ) }}
+            {% for pageNumber in 1..(paginator.count / itemsPerPage)|round %}
+                {{ self.displayPaginationLinks(
+                    pageNumber == page,
+                    path(app.request.attributes.get('_route'), {page: pageNumber}),
+                    '',
+                    pageNumber
+                ) }}
+            {% endfor %}
             <li>
-                <a href="#" aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
-                </a>
-            </li>
-            <li><a href="#">1</a></li>
-            <li><a href="#">2</a></li>
-            <li><a href="#">3</a></li>
-            <li><a href="#">4</a></li>
-            <li><a href="#">5</a></li>
-            <li>
-                <a href="#" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
-                </a>
+                {{ self.displayPaginationLinks(
+                    (paginator.count / itemsPerPage)|round == page,
+                    path(app.request.attributes.get('_route'), {page: page + 1}),
+                    "Next",
+                    "&raquo;"
+                ) }}
             </li>
         </ul>
-    </nav> -->
+    </nav>
 {% endblock body %}
 
 {% block stylesheets %}

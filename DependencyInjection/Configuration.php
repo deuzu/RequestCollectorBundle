@@ -33,7 +33,7 @@ class Configuration implements ConfigurationInterface
                     ->prototype('array')
                         ->children()
                             ->scalarNode('route_path')->isRequired()->end()
-                            ->scalarNode('item_per_page')->defaultValue('25')->end()
+                            ->scalarNode('items_per_page')->defaultValue('25')->end()
                             ->arrayNode('persist')
                                 ->addDefaultsIfNotSet()
                                 ->children()
