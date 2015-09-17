@@ -100,6 +100,5 @@ post_collect_handler.default:
       * button to copy address which collects
       * Inspect all collector action
    * Improve templates
-      * pagination
       * filters
    * Add translations
