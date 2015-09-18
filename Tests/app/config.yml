@@ -9,6 +9,8 @@ framework:
     # default_locale:  en  
     # translator:      { fallback: en }
     # profiler:        { only_exceptions: false }
+    
+# todo test to add swiftmailer, doctrine, etc
 
 deuzu_request_collector:
     collectors:
