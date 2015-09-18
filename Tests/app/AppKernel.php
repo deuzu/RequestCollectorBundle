@@ -9,6 +9,11 @@ class AppKernel extends Kernel
     {
         return array(
             new Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
+            new Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle(),
+            new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
+            new Symfony\Bundle\TwigBundle\TwigBundle(),
+            new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
+
             new Deuzu\RequestCollectorBundle\DeuzuRequestCollectorBundle(),
         );
     }
