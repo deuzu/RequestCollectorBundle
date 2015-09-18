@@ -13,9 +13,12 @@
   ],
   "require": {
     "php": ">=5.4",
-    "symfony/framework-bundle": "~2.6",
+    "symfony/http-kernel": "~2.7",
+    "symfony/framework-bundle": "~2.7",
     "doctrine/orm": "~2.2,>=2.2.3",
-    "doctrine/doctrine-bundle": "~1.2"
+    "doctrine/doctrine-bundle": "~1.2",
+    "symfony/swiftmailer-bundle": "~2.3",
+    "symfony/monolog-bundle": "~2.4"
   },
   "autoload": {
     "psr-4": { "Deuzu\\RequestCollectorBundle\\": "" }
