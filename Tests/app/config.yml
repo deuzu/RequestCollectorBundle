@@ -1,0 +1,15 @@
+framework:
+    secret: "Three can keep a secret, if two of them are dead."
+
+deuzu_request_collector:
+    collectors:
+        test:
+            route_path: /webhook-test
+            log:
+                enabled: true
+                file: test_collector.log
+            mail:
+                enabled: true
+                email: null@qwerty.com
+            persist:
+                enabled: true
