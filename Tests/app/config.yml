@@ -1,5 +1,14 @@
 framework:
     secret: "Three can keep a secret, if two of them are dead."
+    # router:          { resource: "%kernel.root_dir%/config/routing.yml" }
+    # form:            true
+    # csrf_protection: true
+    # session:         ~
+    session:
+        storage_id: session.storage.filesystem
+    # default_locale:  en  
+    # translator:      { fallback: en }
+    # profiler:        { only_exceptions: false }
 
 deuzu_request_collector:
     collectors:
