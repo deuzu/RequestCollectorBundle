@@ -1,0 +1,26 @@
+framework:
+    secret: "Three can keep a secret, if two of them are dead."
+    # router:          { resource: "%kernel.root_dir%/config/routing.yml" }
+    # form:            true
+    # csrf_protection: true
+    # session:         ~
+    session:
+        storage_id: session.storage.filesystem
+    # default_locale:  en  
+    # translator:      { fallback: en }
+    # profiler:        { only_exceptions: false }
+    
+# todo test to add swiftmailer, doctrine, etc
+
+deuzu_request_collector:
+    collectors:
+        test:
+            route_path: /webhook-test
+            log:
+                enabled: true
+                file: test_collector.log
+            mail:
+                enabled: true
+                email: null@qwerty.com
+            persist:
+                enabled: true
