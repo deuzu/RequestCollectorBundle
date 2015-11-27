@@ -93,7 +93,7 @@ post_collect_handler.default:
 
 
 ## TODO
-   * Tests
+   * Tests (try microframework 2.8)
    * Better doc
    * Replace Entity with Model
    * Menu with differents collectors
