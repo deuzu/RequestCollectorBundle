@@ -12,13 +12,15 @@
     }
   ],
   "require": {
-    "php": ">=5.4",
-    "symfony/http-kernel": "~2.7",
+    "php": ">=5.5.9",
+    "symfony/symfony": "3.0.*"
+  },
+  "suggest": {
     "symfony/framework-bundle": "~2.7",
-    "doctrine/orm": "~2.2,>=2.2.3",
-    "doctrine/doctrine-bundle": "~1.2",
-    "symfony/swiftmailer-bundle": "~2.3",
-    "symfony/monolog-bundle": "~2.4"
+    "doctrine/orm": "^2.5",
+    "doctrine/doctrine-bundle": "^1.6",
+    "symfony/swiftmailer-bundle": "^2.3",
+    "symfony/monolog-bundle": "^2.8"
   },
   "autoload": {
     "psr-4": { "Deuzu\\RequestCollectorBundle\\": "" }
