@@ -23,7 +23,7 @@ class Mailer
     /**
      * @param Swift_Mailer $mailer
      */
-    public function __construct(Swift_Mailer $mailer, EngineInterface $templating)
+    public function __construct(Swift_Mailer $mailer = null, EngineInterface $templating)
     {
         $this->mailer     = $mailer;
         $this->templating = $templating;
