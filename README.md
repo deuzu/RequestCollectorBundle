@@ -1,7 +1,7 @@
 Request Collector Bundle
 ------------------------
 
-The request collector Symfony2 bundle collects HTTP requests from various internet services (webhooks, api) or local calls.  
+The request collector Symfony bundle collects HTTP requests from various internet services (webhooks, api) or local calls.  
 It exposes an URL that will persist, log and mail the incomming requests.  
 You can choose how to collect requests in the configuration by enabling or disabling persisting, logging or mailling.  
 The collected HTTP requests contain headers, query string parameters , post/form parameters and the body / content of the request.
