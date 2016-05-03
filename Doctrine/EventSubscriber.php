@@ -30,19 +30,36 @@ class EventSubscriber implements EventSubscriberInterface
     /** @var Mailer */
     private $mailer;
 
-
     /**
      * @param EventDispatcherInterface $eventDispatcher
-     * @param ObjectManager            $manager
-     * @param LoggerInterface          $logger
-     * @param Mailer                   $mailer
      */
-    public function __construct(EventDispatcherInterface $eventDispatcher, ManagerRegistry $managerRegistry, LoggerInterface $logger, Mailer $mailer)
+    public function __construct(EventDispatcherInterface $eventDispatcher)
     {
         $this->eventDispatcher = $eventDispatcher;
+    }
+
+    /**
+     * @param ManagerRegistry|null $managerRegistry
+     */
+    public function setManagerRegistry(ManagerRegistry $managerRegistry = null)
+    {
         $this->managerRegistry = $managerRegistry;
-        $this->logger          = $logger;
-        $this->mailer          = $mailer;
+    }
+
+    /**
+     * @param LoggerInterface|null $logger
+     */
+    public function setLogger(LoggerInterface $logger = null)
+    {
+        $this->logger = $logger;
+    }
+
+    /**
+     * @param Mailer|null $mailer
+     */
+    public function setMailer(Mailer $mailer = null)
+    {
+        $this->mailer = $mailer;
     }
 
     public static function getSubscribedEvents()

@@ -23,10 +23,10 @@ class DefaultController extends Controller
      */
     public function collectAction(Request $request, $_collector)
     {
-        $eventDispatcher            = $this->get('event_dispatcher');
-        $requestCollectorRepository = $this->get('deuzu.request_collector.repository');
-        $requestCollectorParams     = $this->container->getParameter('deuzu_request_collector');
-        $requestObject              = $requestCollectorRepository->createFromRequest($request, $_collector);
+        $eventDispatcher        = $this->get('event_dispatcher');
+        $requestProvider        = $this->get('deuzu.request_collector.request_provider');
+        $requestCollectorParams = $this->container->getParameter('deuzu_request_collector');
+        $requestObject          = $requestProvider->createFromRequest($request, $_collector);
 
         if (!isset($requestCollectorParams['collectors'][$_collector])) {
             throw new \InvalidArgumentException(sprintf('The collector named %s cannot be found in configuration', $_collector));
@@ -34,16 +34,16 @@ class DefaultController extends Controller
 
         $collectorParams = $requestCollectorParams['collectors'][$_collector];
 
-        if (true === $collectorParams['persist']['enabled']) {
+        if (true === $collectorParams['persister']['enabled']) {
             $eventDispatcher->dispatch(Events::PRE_PERSIST, new ObjectEvent($requestObject));
         }
 
-        if (true === $collectorParams['log']['enabled']) {
+        if (true === $collectorParams['logger']['enabled']) {
             $logFile = sprintf(
                 '%s/%s.%s',
                 $this->container->getParameter('kernel.logs_dir'),
                 $this->container->getParameter('kernel.environment'),
-                $collectorParams['log']['file']
+                $collectorParams['logger']['file']
             );
 
             $eventDispatcher->dispatch(
@@ -52,10 +52,10 @@ class DefaultController extends Controller
             );
         }
 
-        if (true === $collectorParams['mail']['enabled']) {
+        if (true === $collectorParams['mailer']['enabled']) {
             $eventDispatcher->dispatch(
                 Events::PRE_MAIL,
-                new ObjectEvent($requestObject, ['email' => $collectorParams['mail']['email']])
+                new ObjectEvent($requestObject, ['email' => $collectorParams['mailer']['email']])
             );
         }
 
@@ -70,12 +70,12 @@ class DefaultController extends Controller
         return $response instanceof Response ? $response : new Response(null, 200);
     }
 
-    /**
-     * @param Request $request
-     *
-     * @return Response
-     */
-    public function inspectAction(Request $request, $_collector)
+    // /**
+    //  * @param Request $request
+    //  *
+    //  * @return Response
+    //  */
+    /*public function inspectAction(Request $request, $_collector)
     {
         $page                       = $request->query->get('page', 1);
         $requestCollectorRepository = $this->get('deuzu.request_collector.repository');
@@ -102,5 +102,5 @@ class DefaultController extends Controller
                 'itemsPerPage'   => $requestCollectorParams['collectors'][$_collector]['items_per_page']
             ]
         );
-    }
+    }*/
 }

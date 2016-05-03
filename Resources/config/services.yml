@@ -5,16 +5,24 @@ services:
 
     deuzu.request_collector.mailer:
         class: Deuzu\RequestCollectorBundle\Service\Mailer
-        arguments: [ '@?swiftmailer.mailer.default', '@templating' ]
+        arguments: [ '@swiftmailer.mailer.default', '@templating' ]
 
-    deuzu.request_collector.repository:
-        class: Deuzu\RequestCollectorBundle\Repository\RequestCollectorRepository
-        factory: ['@doctrine.orm.entity_manager', getRepository]
-        arguments: [ 'DeuzuRequestCollectorBundle:Request' ]
+    # deuzu.request_collector.repository:
+    #     class: Deuzu\RequestCollectorBundle\Repository\RequestCollectorRepository
+    #     factory: ['@doctrine.orm.entity_manager', getRepository]
+    #     arguments: [ 'DeuzuRequestCollectorBundle:Request' ]
 
+    deuzu.request_collector.request_provider:
+        class: Deuzu\RequestCollectorBundle\Request\RequestProvider
+
+    # TODO replace with 3 event listeners
     deuzu.request_collector.event_subscriber:
         class: Deuzu\RequestCollectorBundle\Doctrine\EventSubscriber
-        arguments: [ '@event_dispatcher', '@doctrine', '@deuzu.request_collector.logger', '@deuzu.request_collector.mailer' ]
+        arguments: [ '@event_dispatcher' ]
+        calls:
+            - ['setManagerRegistry', ['@?doctrine']]
+            - ['setLogger', ['@?deuzu.request_collector.logger']]
+            - ['setMailer', ['@?deuzu.request_collector.mailer']]
         tags:
             - { name: kernel.event_subscriber }
 
@@ -27,8 +35,8 @@ services:
         tags:
             - { name: routing.loader }
 
+    # TODO make it optional
     deuzu.request_collector.twig_extension:
         class:  Deuzu\RequestCollectorBundle\Twig\DeuzuRequestCollectorExtension
-        # public: false
         tags:
             - { name: twig.extension }
