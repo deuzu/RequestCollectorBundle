@@ -45,15 +45,15 @@ class DeuzuRequestCollectorExtension extends Extension
         }
 
         if (!$logger) {
-            $container->removeDefinition('deuzu.request_collector.logger');
+            $container->removeDefinition('deuzu.request_collector.collector.logger');
         }
 
         if (!$persister) {
-            $container->removeDefinition('deuzu.request_collector.repository');
+            $container->removeDefinition('deuzu.request_collector.collector.persister');
         }
 
         if (!$mailer) {
-            $container->removeDefinition('deuzu.request_collector.mailer');
+            $container->removeDefinition('deuzu.request_collector.collector.mailer');
         }
     }
 }

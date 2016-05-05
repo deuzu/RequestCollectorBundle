@@ -26,13 +26,19 @@ class RequestCollectorRepository extends EntityRepository
         }
     }
 
+    /**
+     * @param string $collector
+     * @param int    $page
+     * @param int    $maxItemPerPage
+     *
+     * @return Paginator
+     */
     public function findByCollector($collector, $page, $maxItemPerPage)
     {
         $query = $this
             ->createQueryBuilder('c')
             ->where('c.collector = :collector')
             ->setParameter('collector', $collector)
-            ->orderBy('c.createdAt', 'DESC')
             ->getQuery()
         ;
 

@@ -12,7 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity(repositoryClass="Deuzu\RequestCollectorBundle\Repository\RequestCollectorRepository")
  * @ORM\Table(name="deuzu_request_collector_request")
  */
-class Request
+class RequestObject
 {
     /**
      * @var integer
@@ -26,21 +26,21 @@ class Request
     /**
      * @var array
      *
-     * @ORM\Column(type="text", nullable=true)
+     * @ORM\Column(type="array", nullable=true)
      */
     private $headers;
 
     /**
      * @var array
      *
-     * @ORM\Column(type="text", nullable=true)
+     * @ORM\Column(type="array", nullable=true)
      */
     private $postParameters;
 
     /**
      * @var array
      *
-     * @ORM\Column(type="text", nullable=true)
+     * @ORM\Column(type="array", nullable=true)
      */
     private $queryParameters;
 
@@ -73,19 +73,6 @@ class Request
     private $method;
 
     /**
-     * @var \DateTime
-     *
-     * @ORM\Column(type="datetime", nullable=false)
-     */
-    private $createdAt;
-
-
-    public function __construct()
-    {
-        $this->createdAt = new \DateTime();
-    }
-
-    /**
      * Gets the value of id.
      *
      * @return integer
@@ -102,7 +89,7 @@ class Request
      */
     public function getHeaders()
     {
-        return unserialize($this->headers);
+        return $this->headers;
     }
 
     /**
@@ -114,7 +101,7 @@ class Request
      */
     public function setHeaders(array $headers)
     {
-        $this->headers = serialize($headers);
+        $this->headers = $headers;
 
         return $this;
     }
@@ -264,30 +251,6 @@ class Request
     }
 
     /**
-     * Gets the value of createdAt.
-     *
-     * @return \DateTime
-     */
-    public function getCreatedAt()
-    {
-        return $this->createdAt;
-    }
-
-    /**
-     * Sets the value of createdAt.
-     *
-     * @param \DateTime $createdAt the created at
-     *
-     * @return self
-     */
-    private function setCreatedAt(\DateTime $createdAt)
-    {
-        $this->createdAt = $createdAt;
-
-        return $this;
-    }
-
-    /**
      * @return string|null
      */
     public function getHost()
@@ -299,23 +262,5 @@ class Request
         }
 
         return null;
-    }
-
-    /**
-     * @return array
-     */
-    public function toArray()
-    {
-        return [
-            'collector'       => $this->getCollector(),
-            'method'          => $this->getMethod(),
-            'uri'             => $this->getUri(),
-            'host'            => $this->getHost(),
-            'headers'         => $this->getHeaders(),
-            'postParameters'  => $this->getPostParameters(),
-            'queryParameters' => $this->getQueryParameters(),
-            'content'         => $this->getContent(),
-            'createdAt'       => $this->getCreatedAt()->format('d/m/Y H:i:s')
-        ];
     }
 }

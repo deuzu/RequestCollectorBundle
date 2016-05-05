@@ -10,11 +10,11 @@ use Symfony\Component\Routing\RouteCollection;
 use Symfony\Component\Routing\Route;
 
 /**
- * Loads Resources.
+ * Class RouteCollectorLoader.
  *
  * @author Florian Touya <florian.touya@gmail.com>
  */
-class CollectorLoader extends Loader
+class RouteCollectorLoader extends Loader
 {
     /** Route name prefix */
     const ROUTE_NAME_PREFIX = 'request_collector';
@@ -27,7 +27,6 @@ class CollectorLoader extends Loader
 
     /** @var array */
     private $requestCollectorConfiguration;
-
 
     /**
      * @param array $requestCollectorConfiguration

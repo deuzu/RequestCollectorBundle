@@ -1,41 +1,47 @@
 services:
-    deuzu.request_collector.logger:
-        class: Monolog\Logger
-        arguments: [ request_collector ]
-
-    deuzu.request_collector.mailer:
-        class: Deuzu\RequestCollectorBundle\Service\Mailer
-        arguments: [ '@swiftmailer.mailer.default', '@templating' ]
-
-    # deuzu.request_collector.repository:
-    #     class: Deuzu\RequestCollectorBundle\Repository\RequestCollectorRepository
-    #     factory: ['@doctrine.orm.entity_manager', getRepository]
-    #     arguments: [ 'DeuzuRequestCollectorBundle:Request' ]
-
-    deuzu.request_collector.request_provider:
-        class: Deuzu\RequestCollectorBundle\Request\RequestProvider
-
-    # TODO replace with 3 event listeners
-    deuzu.request_collector.event_subscriber:
-        class: Deuzu\RequestCollectorBundle\Doctrine\EventSubscriber
-        arguments: [ '@event_dispatcher' ]
-        calls:
-            - ['setManagerRegistry', ['@?doctrine']]
-            - ['setLogger', ['@?deuzu.request_collector.logger']]
-            - ['setMailer', ['@?deuzu.request_collector.mailer']]
-        tags:
-            - { name: kernel.event_subscriber }
-
     deuzu.request_collector.post_collect_handler_collection:
         class: Deuzu\RequestCollectorBundle\DependencyInjection\Compiler\PostCollectHandlerCollection
 
-    deuzu.request_collector.route_loader:
-        class: Deuzu\RequestCollectorBundle\Routing\CollectorLoader
-        arguments: [ %deuzu_request_collector% ]
+    deuzu.request_collector.route_collector_loader:
+        class: Deuzu\RequestCollectorBundle\Routing\RouteCollectorLoader
+        arguments: [ "%deuzu_request_collector%" ]
         tags:
             - { name: routing.loader }
 
-    # TODO make it optional
+    deuzu.request_collector.request_provider:
+        class: Deuzu\RequestCollectorBundle\Request\RequestObjectProvider
+        arguments:
+            - "@request_stack"
+
+    # Collectors
+    deuzu.request_collector.collector.dispatcher:
+        class: Deuzu\RequestCollectorBundle\Collector\DispatcherCollector
+        calls:
+            - ["setLoggerCollector", ["@?deuzu.request_collector.collector.logger"]]
+            - ["setPersisterCollector", ["@?deuzu.request_collector.collector.persister"]]
+            - ["setMailerCollector", ["@?deuzu.request_collector.collector.mailer"]]
+
+    deuzu.request_collector.collector.logger:
+        class: Deuzu\RequestCollectorBundle\Collector\LoggerCollector
+        arguments:
+            - "@logger"
+            - "@serializer"
+            - "%kernel.logs_dir%"
+            - "%kernel.environment%"
+
+    deuzu.request_collector.collector.persister:
+        class: Deuzu\RequestCollectorBundle\Collector\PersisterCollector
+        arguments:
+            - "@doctrine"
+
+    deuzu.request_collector.collector.mailer:
+        class: Deuzu\RequestCollectorBundle\Collector\MailerCollector
+        arguments:
+            - "@swiftmailer.mailer.default"
+            - "@templating"
+            - "%deuzu_request_collector%"
+
+    # Twig
     deuzu.request_collector.twig_extension:
         class:  Deuzu\RequestCollectorBundle\Twig\DeuzuRequestCollectorExtension
         tags:
