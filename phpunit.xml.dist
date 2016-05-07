@@ -7,8 +7,19 @@
          bootstrap="tests/Fixtures/app/bootstrap.php"
          colors="true">
     <testsuites>
-        <testsuite name="Project Test Suite">
-            <directory>Tests</directory>
+        <testsuite name="Deuzu request collector Test Suite">
+            <directory>./Tests</directory>
         </testsuite>
     </testsuites>
+
+    <filter>
+        <whitelist>
+            <directory>./</directory>
+            <exclude>
+                <directory>./Resources</directory>
+                <directory>./Tests</directory>
+                <directory>./vendor</directory>
+            </exclude>
+        </whitelist>
+    </filter>
 </phpunit>
