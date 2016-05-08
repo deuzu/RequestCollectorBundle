@@ -15,38 +15,12 @@ use Doctrine\ORM\Tools\Pagination\Paginator;
 class RequestCollectorRepository extends EntityRepository
 {
     /**
-     * @param Request $request
-     * @param string  $collectorName
+     * @param string $collector
+     * @param int    $page
+     * @param int    $maxItemPerPage
      *
-     * @return RequestObject
+     * @return Paginator
      */
-    public function createFromRequest(Request $request, $collectorName)
-    {
-        $requestObject = new RequestObject();
-        $requestObject->setHeaders($request->headers->all());
-        $requestObject->setPostParameters($request->request->all());
-        $requestObject->setQueryParameters($request->query->all());
-        $requestObject->setContent($request->getContent());
-        $requestObject->setCollector($collectorName);
-        $requestObject->setUri($request->getUri());
-        $requestObject->setMethod($request->getMethod());
-
-        return $requestObject;
-    }
-
-    /**
-     * @param RequestObject $requestObject
-     * @param bolean        $doFlush
-     */
-    public function persist(RequestObject $requestObject, $doFlush = false)
-    {
-        $this->_em->persist($requestObject);
-
-        if ($doFlush) {
-            $this->_em->flush();
-        }
-    }
-
     public function findByCollector($collector, $page, $maxItemPerPage)
     {
         $query = $this
