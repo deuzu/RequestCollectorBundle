@@ -6,5 +6,5 @@ php:
 install:
    - composer install
 
-script: 
-    - phpunit
+script:
+    - phpunit --coverage-text

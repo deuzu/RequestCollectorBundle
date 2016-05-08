@@ -47,8 +47,8 @@ class LoggerCollectorTest extends \PHPUnit_Framework_TestCase
      */
     public function itShouldCollect()
     {
-        $this->serializer->normalize(Argument::any())->willReturn([]);
-        $this->logger->pushHandler(Argument::any())->willReturn(true);
+        $this->serializer->normalize(Argument::any())->shouldBeCalled()->willReturn([]);
+        $this->logger->pushHandler(Argument::any())->shouldBeCalled()->willReturn(true);
         $this->logger->info(Argument::type('string'), Argument::type('array'))->shouldBeCalled();
         $this->collector->collect($this->requestObject, ['logFile' => 'test.log']);
     }

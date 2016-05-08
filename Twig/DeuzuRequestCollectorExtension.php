@@ -4,11 +4,10 @@ namespace Deuzu\RequestCollectorBundle\Twig;
 
 use Deuzu\RequestCollectorBundle\Entity\RequestObject;
 
-class DeuzuRequestCollectorExtension extends \Twig_extension
+class DeuzuRequestCollectorExtension extends \Twig_Extension
 {
     /** @var array */
     private $formatedParameters = [];
-
 
     /**
      * @return array

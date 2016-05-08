@@ -14,19 +14,6 @@ use Doctrine\ORM\Tools\Pagination\Paginator;
 class RequestCollectorRepository extends EntityRepository
 {
     /**
-     * @param RequestObject $requestObject
-     * @param bolean        $doFlush
-     */
-    public function persist(RequestObject $requestObject, $doFlush = false)
-    {
-        $this->_em->persist($requestObject);
-
-        if ($doFlush) {
-            $this->_em->flush();
-        }
-    }
-
-    /**
      * @param string $collector
      * @param int    $page
      * @param int    $maxItemPerPage
