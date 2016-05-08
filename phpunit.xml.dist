@@ -4,7 +4,7 @@
 <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:noNamespaceSchemaLocation="http://schema.phpunit.de/4.6/phpunit.xsd"
          backupGlobals="false"
-         bootstrap="tests/Fixtures/app/bootstrap.php"
+         bootstrap="Tests/bootstrap.php"
          colors="true">
     <testsuites>
         <testsuite name="Deuzu request collector Test Suite">
