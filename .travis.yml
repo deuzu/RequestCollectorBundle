@@ -7,4 +7,5 @@ install:
    - composer install
 
 script:
+    - vendor/bin/phpcs --standard=vendor/escapestudios/symfony2-coding-standard/Symfony2 --ignore=vendor/ --ignore=Resources/ .
     - phpunit --coverage-text

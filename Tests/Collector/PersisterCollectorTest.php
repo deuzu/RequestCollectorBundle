@@ -5,7 +5,6 @@ namespace Deuzu\RequestCollectorBundle\Tests\Collector;
 use Deuzu\RequestCollectorBundle\Collector\PersisterCollector;
 use Deuzu\RequestCollectorBundle\Entity\RequestObject;
 use Doctrine\ORM\EntityManager;
-use Prophecy\Argument;
 use Symfony\Bridge\Doctrine\ManagerRegistry;
 
 /**

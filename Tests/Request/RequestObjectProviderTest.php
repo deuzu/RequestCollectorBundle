@@ -7,6 +7,11 @@ use Deuzu\RequestCollectorBundle\Entity\RequestObject;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 
+/**
+ * Class RequestObjectProviderTest.
+ *
+ * @author Florian Touya <florian.touya@gmail.com>
+ */
 class RequestObjectProviderTest extends \PHPUnit_Framework_TestCase
 {
     /**

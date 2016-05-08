@@ -2,10 +2,7 @@
 
 namespace Deuzu\RequestCollectorBundle\Routing;
 
-use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Config\Loader\Loader;
-use Symfony\Component\HttpKernel\KernelInterface;
-use Symfony\Component\Routing\Loader\YamlFileLoader;
 use Symfony\Component\Routing\RouteCollection;
 use Symfony\Component\Routing\Route;
 
@@ -48,16 +45,16 @@ class RouteCollectorLoader extends Loader
                 $collectorConfig['route_path'],
                 [
                     '_controller' => sprintf('%s:collect', self::DEFAULT_CONTROLLER),
-                    '_collector'  => $collector
+                    '_collector' => $collector,
                 ]
             );
 
-            $inspectPath  = substr($collectorConfig['route_path'], -1) === '/' ? 'inspect' : '/inspect';
+            $inspectPath = substr($collectorConfig['route_path'], -1) === '/' ? 'inspect' : '/inspect';
             $inspectRoute = new Route(
-            $collectorConfig['route_path'] . $inspectPath,
+                $collectorConfig['route_path'].$inspectPath,
                 [
                     '_controller' => sprintf('%s:inspect', self::DEFAULT_CONTROLLER),
-                    '_collector'  => $collector,
+                    '_collector' => $collector,
                 ],
                 [],
                 [],

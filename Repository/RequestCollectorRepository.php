@@ -3,11 +3,10 @@
 namespace Deuzu\RequestCollectorBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
-use Deuzu\RequestCollectorBundle\Entity\Request as RequestObject;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 
 /**
- * Class RequestCollectorRepository
+ * Class RequestCollectorRepository.
  *
  * @author Florian Touya <florian.touya@gmail.com>
  */

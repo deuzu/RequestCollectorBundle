@@ -2,15 +2,11 @@
 
 namespace Deuzu\RequestCollectorBundle\Routing;
 
-use Symfony\Component\Config\FileLocator;
-use Symfony\Component\Config\Loader\Loader;
-use Symfony\Component\HttpKernel\KernelInterface;
-use Symfony\Component\Routing\Loader\YamlFileLoader;
-use Symfony\Component\Routing\RouteCollection;
-use Symfony\Component\Routing\Route;
-
-use Deuzu\RequestCollectorBundle\Routing\RouteCollectorLoader;
-
+/**
+ * Class RouteCollectorLoaderTest.
+ *
+ * @author Florian Touya <florian.touya@gmail.com>
+ */
 class RouteCollectorLoaderTest extends \PHPUnit_Framework_TestCase
 {
     /** @var RouteCollectorLoader */
@@ -19,13 +15,16 @@ class RouteCollectorLoaderTest extends \PHPUnit_Framework_TestCase
     /** @var array */
     private $configuration;
 
+    /**
+     * Setup
+     */
     public function setup()
     {
         $this->configuration = [
             'collectors' => [
-                'test' => ['route_path' => '/test', 'logger' => [ 'enabled' => true, 'file' => 'test.log']],
-                'test2' => ['route_path' => '/test2', 'persister' => ['enabled' => true]]
-            ]
+                'test' => ['route_path' => '/test', 'logger' => ['enabled' => true, 'file' => 'test.log']],
+                'test2' => ['route_path' => '/test2', 'persister' => ['enabled' => true]],
+            ],
         ];
         $this->routeLoader = new RouteCollectorLoader($this->configuration);
     }

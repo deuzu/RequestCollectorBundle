@@ -6,16 +6,19 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 
 /**
- * Class Configuration
+ * Class Configuration.
  *
  * @author Florian Touya <florian.touya@gmail.com>
  */
 class Configuration implements ConfigurationInterface
 {
+    /**
+     * {@inheritdoc}
+     */
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-        $rootNode    = $treeBuilder->root('deuzu_request_collector');
+        $rootNode = $treeBuilder->root('deuzu_request_collector');
 
         $rootNode
             ->children()
@@ -49,7 +52,7 @@ class Configuration implements ConfigurationInterface
                             ->end()
                             ->arrayNode('mailer')
                                 ->beforeNormalization()
-                                    ->ifTrue(function($v) {
+                                    ->ifTrue(function ($v) {
                                         return $v['enabled'] && !isset($v['email']);
                                     })
                                     ->thenInvalid('The child node "email" under the node "mail" of your collector must be configured.')

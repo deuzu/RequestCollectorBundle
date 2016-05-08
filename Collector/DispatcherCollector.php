@@ -2,9 +2,6 @@
 
 namespace Deuzu\RequestCollectorBundle\Collector;
 
-use Deuzu\RequestCollectorBundle\Collector\LoggerCollector;
-use Deuzu\RequestCollectorBundle\Collector\MailerCollector;
-use Deuzu\RequestCollectorBundle\Collector\PersisterCollector;
 use Deuzu\RequestCollectorBundle\Entity\RequestObject;
 
 /**
@@ -30,7 +27,7 @@ class DispatcherCollector
     private $mailerCollector;
 
     /**
-     * @param LoggerCollector|null $logger
+     * @param LoggerCollector|null $loggerCollector
      */
     public function setLoggerCollector(LoggerCollector $loggerCollector = null)
     {

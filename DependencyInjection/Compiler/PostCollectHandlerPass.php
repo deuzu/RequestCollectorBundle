@@ -7,7 +7,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 
 /**
- * Class PostCollectHandlerPass
+ * Class PostCollectHandlerPass.
  *
  * @author Florian Touya <florian.touya@gmail.com>
  */
@@ -19,8 +19,8 @@ class PostCollectHandlerPass implements CompilerPassInterface
     public function process(ContainerBuilder $container)
     {
         $postCollectHandlerCollectionDefinition = $container->getDefinition('deuzu.request_collector.post_collect_handler_collection');
-        $requestCollectorParams                 = $container->getParameter('deuzu_request_collector');
-        $collectors                             = array_keys($requestCollectorParams['collectors']);
+        $requestCollectorParams = $container->getParameter('deuzu_request_collector');
+        $collectors = array_keys($requestCollectorParams['collectors']);
 
         foreach ($container->findTaggedServiceIds('post_collect_handler') as $serviceId => $tags) {
             if (!isset($tags[0]) || !isset($tags[0]['alias']) || empty($tags[0]['alias'])) {

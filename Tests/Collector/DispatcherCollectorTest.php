@@ -16,6 +16,9 @@ use Prophecy\Argument;
  */
 class DispatcherCollectorTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * Setup
+     */
     public function setup()
     {
         $this->logger = $this->prophesize(LoggerCollector::class);

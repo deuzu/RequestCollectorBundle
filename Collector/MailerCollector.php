@@ -26,7 +26,7 @@ class MailerCollector implements CollectorInterface
     /**
      * @param Swift_Mailer    $mailer
      * @param EngineInterface $templating
-     * @param string          $fromEmail
+     * @param array           $requestCollectorConfiguration
      */
     public function __construct(Swift_Mailer $mailer, EngineInterface $templating, array $requestCollectorConfiguration)
     {

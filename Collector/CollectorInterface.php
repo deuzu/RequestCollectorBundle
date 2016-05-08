@@ -4,6 +4,11 @@ namespace Deuzu\RequestCollectorBundle\Collector;
 
 use Deuzu\RequestCollectorBundle\Entity\RequestObject;
 
+/**
+ * interface CollectorInterface.
+ *
+ * @author Florian Touya <florian.touya@gmail.com>
+ */
 interface CollectorInterface
 {
     /**

@@ -40,6 +40,7 @@ class DefaultController extends Controller
 
     /**
      * @param Request $request
+     * @param string  $_collector
      *
      * @return Response
      */
@@ -49,9 +50,9 @@ class DefaultController extends Controller
             throw new \LogicException('Cannot serve requests from database without doctrine enabled');
         }
 
-        $page                       = $request->query->get('page', 1);
+        $page = $request->query->get('page', 1);
         $requestCollectorRepository = $this->getDoctrine()->getRepository(RequestObject::class);
-        $requestCollectorParams     = $this->container->getParameter('deuzu_request_collector');
+        $requestCollectorParams = $this->container->getParameter('deuzu_request_collector');
 
         if (!isset($requestCollectorParams['collectors'][$_collector])) {
             throw new \InvalidArgumentException(sprintf('The collector named %s cannot be found in configuration', $_collector));
@@ -66,10 +67,10 @@ class DefaultController extends Controller
         return $this->render(
             'DeuzuRequestCollectorBundle:RequestCollector:index.html.twig',
             [
-                'paginator'      => $paginator,
-                'assets'         => $requestCollectorParams['assets'],
-                'page'           => $page,
-                'itemsPerPage'   => $requestCollectorParams['collectors'][$_collector]['items_per_page']
+                'paginator' => $paginator,
+                'assets' => $requestCollectorParams['assets'],
+                'page' => $page,
+                'itemsPerPage' => $requestCollectorParams['collectors'][$_collector]['items_per_page'],
             ]
         );
     }

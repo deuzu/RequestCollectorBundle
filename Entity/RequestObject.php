@@ -5,7 +5,7 @@ namespace Deuzu\RequestCollectorBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Class Request
+ * Class Request.
  *
  * @author Florian Touya <florian.touya@gmail.com>
  *
@@ -15,7 +15,7 @@ use Doctrine\ORM\Mapping as ORM;
 class RequestObject
 {
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(type="integer")
      * @ORM\Id
@@ -75,7 +75,7 @@ class RequestObject
     /**
      * Gets the value of id.
      *
-     * @return integer
+     * @return int
      */
     public function getId()
     {
@@ -261,6 +261,6 @@ class RequestObject
             return $headers['host'][0];
         }
 
-        return null;
+        return;
     }
 }

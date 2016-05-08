@@ -27,6 +27,9 @@ class LoggerCollectorTest extends \PHPUnit_Framework_TestCase
     /** @var LoggerCollector */
     private $collector;
 
+    /**
+     * Setup
+     */
     public function setup()
     {
         $this->logger = $this->prophesize(Logger::class);

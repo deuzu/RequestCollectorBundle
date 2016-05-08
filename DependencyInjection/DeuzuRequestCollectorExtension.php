@@ -9,17 +9,20 @@ use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Config\Definition\Processor;
 
 /**
- * Class DeuzuRequestCollectorExtension
+ * Class DeuzuRequestCollectorExtension.
  *
  * @author Florian Touya <florian.touya@gmail.com>
  */
 class DeuzuRequestCollectorExtension extends Extension
 {
+    /**
+     * {@inheritdoc}
+     */
     public function load(array $configs, ContainerBuilder $container)
     {
         $configuration = new Configuration();
-        $processor     = new Processor();
-        $config        = $processor->processConfiguration($configuration, $configs);
+        $processor = new Processor();
+        $config = $processor->processConfiguration($configuration, $configs);
         $container->setParameter('deuzu_request_collector', $config);
 
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));

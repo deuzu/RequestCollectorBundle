@@ -5,7 +5,7 @@ namespace Deuzu\RequestCollectorBundle\DependencyInjection\Compiler;
 use Deuzu\RequestCollectorBundle\PostCollectHandler\PostCollectHandlerInterface;
 
 /**
- * Class PostCollectHandlerCollection
+ * Class PostCollectHandlerCollection.
  *
  * @author Florian Touya <florian.touya@gmail.com>
  */
@@ -16,6 +16,7 @@ class PostCollectHandlerCollection
 
     /**
      * @param AbstractPostCollectHandler $postCollector
+     * @param string                     $postCollectHandlerName
      */
     public function add(PostCollectHandlerInterface $postCollector, $postCollectHandlerName)
     {

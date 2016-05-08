@@ -4,20 +4,25 @@ namespace Deuzu\RequestCollectorBundle\Twig;
 
 use Deuzu\RequestCollectorBundle\Entity\RequestObject;
 
+/**
+ * Class DeuzuRequestCollectorExtension.
+ *
+ * @author Florian Touya <florian.touya@gmail.com>
+ */
 class DeuzuRequestCollectorExtension extends \Twig_Extension
 {
     /** @var array */
     private $formatedParameters = [];
 
     /**
-     * @return array
+     * {@inheritdoc}
      */
     public function getFilters()
     {
-        return array(
+        return [
             new \Twig_SimpleFilter('formatParameters', array($this, 'formatParameters')),
             new \Twig_SimpleFilter('curl', array($this, 'requestToCurl')),
-        );
+        ];
     }
 
     /**
@@ -44,7 +49,7 @@ class DeuzuRequestCollectorExtension extends \Twig_Extension
             }
         }
 
-        return substr($curlHeaders, 0 , -1);
+        return substr($curlHeaders, 0, -1);
     }
 
     /**
@@ -61,7 +66,7 @@ class DeuzuRequestCollectorExtension extends \Twig_Extension
             $curlPostParameters .= sprintf('%s=%s&', $key, $value);
         }
 
-        return substr($curlPostParameters, 0 , -1) . '"';
+        return substr($curlPostParameters, 0, -1).'"';
     }
 
     /**

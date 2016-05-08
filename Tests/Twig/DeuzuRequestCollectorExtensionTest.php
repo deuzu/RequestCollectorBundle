@@ -3,13 +3,20 @@
 namespace Deuzu\RequestCollectorBundle\Twig;
 
 use Deuzu\RequestCollectorBundle\Entity\RequestObject;
-use Deuzu\RequestCollectorBundle\TwigDeuzuRequestCollectorExtension;
 
+/**
+ * Class DeuzuRequestCollectorExtensionTest.
+ *
+ * @author Florian Touya <florian.touya@gmail.com>
+ */
 class DeuzuRequestCollectorExtensionTest extends \PHPUnit_Framework_TestCase
 {
     /** @var DeuzuRequestCollectorExtension */
     private $twigExtension;
 
+    /**
+     * Setup
+     */
     public function setup()
     {
         $this->twigExtension = new DeuzuRequestCollectorExtension();
@@ -35,7 +42,7 @@ class DeuzuRequestCollectorExtensionTest extends \PHPUnit_Framework_TestCase
      */
     public function itShouldFormatParameters()
     {
-        $expectedFormatedParameters = ['category' => 'tennis', 'enabled' => true, 'media[image1]' => 'image1.jpg'];;
+        $expectedFormatedParameters = ['category' => 'tennis', 'enabled' => true, 'media[image1]' => 'image1.jpg'];
         $parameters = ['category' => 'tennis', 'enabled' => true, 'media' => ['image1' => 'image1.jpg']];
         $formatedParameters = $this->twigExtension->formatParameters($parameters);
 

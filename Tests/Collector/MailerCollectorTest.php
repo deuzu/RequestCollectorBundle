@@ -4,7 +4,6 @@ namespace Deuzu\RequestCollectorBundle\Tests\Collector;
 
 use Deuzu\RequestCollectorBundle\Collector\MailerCollector;
 use Deuzu\RequestCollectorBundle\Entity\RequestObject;
-use Prophecy\Argument;
 use Symfony\Bridge\Twig\TwigEngine;
 use Swift_Mailer;
 
@@ -27,6 +26,9 @@ class MailerCollectorTest extends \PHPUnit_Framework_TestCase
     /** @var LoggerCollector */
     private $collector;
 
+    /**
+     * Setup
+     */
     public function setup()
     {
         $this->mailer = $this->prophesize(Swift_Mailer::class);
