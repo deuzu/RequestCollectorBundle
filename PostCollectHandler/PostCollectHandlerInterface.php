@@ -5,7 +5,7 @@ namespace Deuzu\RequestCollectorBundle\PostCollectHandler;
 use Deuzu\RequestCollectorBundle\Entity\Request as RequestObject;
 
 /**
- * Interface PostCollectHandlerInterface
+ * Interface PostCollectHandlerInterface.
  *
  * @author Florian Touya <florian.touya@gmail.com>
  */
@@ -16,5 +16,5 @@ interface PostCollectHandlerInterface
      *
      * @return Response|null
      */
-    public function execute(RequestObject $requestObject);
+    public function handle(RequestObject $requestObject);
 }

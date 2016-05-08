@@ -36,7 +36,7 @@
             <span>C </span><span class="badge">{{ requestObject.content|length }}</span>
         </div>
 
-        <p class="request-date">{{ requestObject.createdAt|date('d/m/Y H:i:s') }}</p>
+        <p class="request-date">{# requestObject.createdAt|date('d/m/Y H:i:s') #}</p>
 
         <div class="actions">
             <button class="clipboard-copy btn uri" data-clipboard-text="{{ requestObject.uri }}" data-info-message="The URI has been copied to your clipboard.">

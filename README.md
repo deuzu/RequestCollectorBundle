@@ -66,13 +66,13 @@ deuzu_request_collector:
             route_path: /what/ever/you/want
         github:
             route_path: /github/webhook
-            log:
+            logger:
                 enabled: true
                 file: github_collector.log # app/logs/github_collector.log
-            mail:
+            mailer:
                 enabled: true
                 email: florian.touya@gmail.com
-            persist:
+            persister:
                 enabled: true
 ```
 
@@ -93,12 +93,11 @@ post_collect_handler.default:
 
 
 ## TODO
-   * Tests (try microframework 2.8)
-   * Better doc
-   * Replace Entity with Model
+   * Unit tests
    * Menu with differents collectors
       * button to copy address which collects
       * Inspect all collector action
    * Improve templates
       * filters
-   * Add translations
+   * Add translations (en only)
+   * Functionnal standalone tests ?

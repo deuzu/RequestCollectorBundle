@@ -2,7 +2,7 @@
 
 namespace Deuzu\RequestCollectorBundle\Twig;
 
-use Deuzu\RequestCollectorBundle\Entity\Request as RequestObject;
+use Deuzu\RequestCollectorBundle\Entity\RequestObject;
 
 class DeuzuRequestCollectorExtension extends \Twig_Extension
 {

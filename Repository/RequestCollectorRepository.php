@@ -4,7 +4,6 @@ namespace Deuzu\RequestCollectorBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
 use Deuzu\RequestCollectorBundle\Entity\Request as RequestObject;
-use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 
 /**
@@ -27,7 +26,6 @@ class RequestCollectorRepository extends EntityRepository
             ->createQueryBuilder('c')
             ->where('c.collector = :collector')
             ->setParameter('collector', $collector)
-            ->orderBy('c.createdAt', 'DESC')
             ->getQuery()
         ;
 

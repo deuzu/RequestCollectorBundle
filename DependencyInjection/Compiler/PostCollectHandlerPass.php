@@ -13,6 +13,9 @@ use Symfony\Component\DependencyInjection\Reference;
  */
 class PostCollectHandlerPass implements CompilerPassInterface
 {
+    /**
+     * {@inheritdoc}
+     */
     public function process(ContainerBuilder $container)
     {
         $postCollectHandlerCollectionDefinition = $container->getDefinition('deuzu.request_collector.post_collect_handler_collection');
