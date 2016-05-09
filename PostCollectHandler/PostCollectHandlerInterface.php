@@ -2,7 +2,7 @@
 
 namespace Deuzu\RequestCollectorBundle\PostCollectHandler;
 
-use Deuzu\RequestCollectorBundle\Entity\Request as RequestObject;
+use Deuzu\RequestCollectorBundle\Entity\RequestObject;
 
 /**
  * Interface PostCollectHandlerInterface.

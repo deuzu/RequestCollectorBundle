@@ -21,7 +21,7 @@ class PostCollectHandlerCollection
     public function add(PostCollectHandlerInterface $postCollector, $postCollectHandlerName)
     {
         if (isset($this->postCollectHandlerIndex[$postCollectHandlerName])) {
-            throw new \InvalidArgumentException(sprintf('A post collect handler named %s already exists.', $postCollectHandlerName));
+            throw new \LogicException(sprintf('A post collect handler named %s already exists.', $postCollectHandlerName));
         }
 
         $this->postCollectHandlerIndex[$postCollectHandlerName] = $postCollector;
