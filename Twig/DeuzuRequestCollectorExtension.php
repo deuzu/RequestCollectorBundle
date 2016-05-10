@@ -71,7 +71,7 @@ class DeuzuRequestCollectorExtension extends \Twig_Extension
 
     /**
      * @param array       $parameters
-     * @param sitrng|null $keyString
+     * @param string|null $keyString
      * @param boolean     $nested
      *
      * @return array

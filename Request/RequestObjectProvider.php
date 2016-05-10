@@ -3,6 +3,7 @@
 namespace Deuzu\RequestCollectorBundle\Request;
 
 use Deuzu\RequestCollectorBundle\Entity\RequestObject;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
@@ -13,9 +14,9 @@ use Symfony\Component\HttpFoundation\RequestStack;
 class RequestObjectProvider
 {
     /**
-     * @var RequestStack
+     * @var Request
      */
-    private $requestStack;
+    private $request;
 
     /**
      * @param RequestStack $requestStack

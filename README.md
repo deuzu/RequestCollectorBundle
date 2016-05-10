@@ -3,7 +3,9 @@ Request Collector Bundle
 
 [![Build Status](https://travis-ci.org/deuzu/RequestCollectorBundle.svg?branch=master)](https://travis-ci.org/deuzu/RequestCollectorBundle)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/deuzu/RequestCollectorBundle/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/deuzu/RequestCollectorBundle/?branch=master)
-[![Latest Stable Version](https://poser.pugx.org/deuzu/request-collector-bundle/v/stable)](https://packagist.org/packages/deuzu/request-collector-bundle) [![Total Downloads](https://poser.pugx.org/deuzu/request-collector-bundle/downloads)](https://packagist.org/packages/deuzu/request-collector-bundle) [![Latest Unstable Version](https://poser.pugx.org/deuzu/request-collector-bundle/v/unstable)](https://packagist.org/packages/deuzu/request-collector-bundle) [![License](https://poser.pugx.org/deuzu/request-collector-bundle/license)](https://packagist.org/packages/deuzu/request-collector-bundle)
+[![Code Coverage](https://scrutinizer-ci.com/g/deuzu/RequestCollectorBundle/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/deuzu/RequestCollectorBundle/?branch=master)
+[![Latest Stable Version](https://poser.pugx.org/deuzu/request-collector-bundle/v/stable)](https://packagist.org/packages/deuzu/request-collector-bundle) [![Total Downloads](https://poser.pugx.org/deuzu/request-collector-bundle/downloads)](https://packagist.org/packages/deuzu/request-collector-bundle)
+[![License](https://poser.pugx.org/deuzu/request-collector-bundle/license)](https://packagist.org/packages/deuzu/request-collector-bundle)
 
 The request collector Symfony bundle collects HTTP requests from various internet services (webhooks, api) or local calls.  
 It exposes an URL that will persist, log and / or mail the incomming requests.  
@@ -37,7 +39,7 @@ framework:
     # ...
     serializer:
         enabled: true
-        
+
 deuzu_request_collector:
     collectors:
         default:
