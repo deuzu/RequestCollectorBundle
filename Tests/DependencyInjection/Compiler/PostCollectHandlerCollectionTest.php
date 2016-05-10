@@ -6,7 +6,7 @@ use Deuzu\RequestCollectorBundle\DependencyInjection\Compiler\PostCollectHandler
 use Deuzu\RequestCollectorBundle\Tests\Fixtures\PostCollectHandler\CustomPostCollectHandler;
 
 /**
- * Class PostCollectHandlerCollection.
+ * Class PostCollectHandlerCollectionTest.
  *
  * @author Florian Touya <florian.touya@gmail.com>
  */
