@@ -8,4 +8,7 @@ install:
 
 script:
     - vendor/bin/phpcs --standard=vendor/escapestudios/symfony2-coding-standard/Symfony2 --ignore=vendor/ --ignore=Resources/ .
-    - phpunit --coverage-text
+    - phpunit --coverage-clover coverage.clover
+
+after_script:
+  - wget https://scrutinizer-ci.com/ocular.phar && php ocular.phar code-coverage:upload --format=php-clover coverage.clover
