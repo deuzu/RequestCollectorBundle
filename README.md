@@ -33,6 +33,11 @@ deuzu_request_collector:
 
 *app/config/config.yml*
 ```yaml
+framework:
+    # ...
+    serializer:
+        enabled: true
+        
 deuzu_request_collector:
     collectors:
         default:
