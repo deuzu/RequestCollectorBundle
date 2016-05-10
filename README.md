@@ -5,11 +5,10 @@ Request Collector Bundle
 [![Latest Stable Version](https://poser.pugx.org/deuzu/request-collector-bundle/v/stable)](https://packagist.org/packages/deuzu/request-collector-bundle) [![Total Downloads](https://poser.pugx.org/deuzu/request-collector-bundle/downloads)](https://packagist.org/packages/deuzu/request-collector-bundle) [![Latest Unstable Version](https://poser.pugx.org/deuzu/request-collector-bundle/v/unstable)](https://packagist.org/packages/deuzu/request-collector-bundle) [![License](https://poser.pugx.org/deuzu/request-collector-bundle/license)](https://packagist.org/packages/deuzu/request-collector-bundle)
 
 The request collector Symfony bundle collects HTTP requests from various internet services (webhooks, api) or local calls.  
-It exposes an URL that will persist, log and mail the incomming requests.  
-You can choose how to collect requests in the configuration by enabling or disabling persisting, logging or mailling.  
+It exposes an URL that will persist, log and / or mail the incomming requests.  
 The collected HTTP requests contain headers, query string parameters , post/form parameters and the body / content of the request.
 
-It will help you to inspect or debug webhooks / api requests.  
+It will help you to inspect, debug or process webhooks / api requests.  
 
 You can also add a your own custom service which will be executed just after the collect process by tagging a Symfony service from your application (CF Extension).
 
@@ -57,7 +56,7 @@ $ php app/console doctrine:schema:create
 $ php app/console doctrine:schema:update --force
 ```
 
-*You're done. To test it try to access a configured URL and then add /inspect at the end to see the persisted requests. Logs are located in app/logs/ and named by default request_collector.log*
+*You're done. To test it try to access a configured URL and then add /inspect at the end to see the persisted requests. Logs are located in the log folder and named by default request_collector.log*
 
 
 ## Configuration
@@ -86,9 +85,6 @@ deuzu_request_collector:
 
 
 ## Extension
-
-*Events are propagated before and after each collect (mail, log and persist).*
-*The list of available events is in the class `Deuzu\RequestCollectorBundle\Event\Events`.*
 
 *If you want to add your own custom service after the collect process all you have to do is to tag it like this :*
 ```yaml
