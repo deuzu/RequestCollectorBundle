@@ -8,16 +8,13 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Reference;
 
+/**
+ * Class PostCollectHandlerPassTest.
+ *
+ * @author Florian Touya <florian.touya@gmail.com>
+ */
 class PostCollectHandlerPassTest extends AbstractCompilerPassTestCase
 {
-    /**
-     * {@inheritdoc}
-     */
-    protected function registerCompilerPass(ContainerBuilder $container)
-    {
-        $container->addCompilerPass(new PostCollectHandlerPass());
-    }
-
     /**
      * @test
      */
@@ -42,4 +39,12 @@ class PostCollectHandlerPassTest extends AbstractCompilerPassTestCase
     }
 
     // TODO handle exception cases
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function registerCompilerPass(ContainerBuilder $container)
+    {
+        $container->addCompilerPass(new PostCollectHandlerPass());
+    }
 }

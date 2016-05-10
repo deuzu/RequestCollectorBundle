@@ -13,16 +13,6 @@ use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractExtensionTestCase;
 class DeuzuRequestCollectorExtensionTest extends AbstractExtensionTestCase
 {
     /**
-     * {@inheritdoc}
-     */
-    protected function getContainerExtensions()
-    {
-        return [
-            new DeuzuRequestCollectorExtension()
-        ];
-    }
-
-    /**
      * @test
      */
     public function itShouldLoadWithoutConfiguration()
@@ -72,7 +62,7 @@ class DeuzuRequestCollectorExtensionTest extends AbstractExtensionTestCase
                     'logger' => [
                         'enabled' => true,
                         'file' => 'test.log',
-                    ]
+                    ],
                 ],
                 'test_collector_2' => [
                     'route_path' => '/test-2/collect',
@@ -100,4 +90,14 @@ class DeuzuRequestCollectorExtensionTest extends AbstractExtensionTestCase
     }
 
     // TODO handle error cases (ie mailer enabled with no email defined)
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function getContainerExtensions()
+    {
+        return [
+            new DeuzuRequestCollectorExtension(),
+        ];
+    }
 }
