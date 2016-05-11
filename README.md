@@ -44,22 +44,32 @@ deuzu_request_collector:
     collectors:
         default:
             route_path: /request-collector/collect
+            logger:
+                enabled: true
 ```
-*You need to configure one collector and its route_path. By default the collector only persists the request.*
+You need to enable the serializer and configure your collector if needed (complete configuration below)
 
-*Create Doctrine schema if needed*
+If you are using jms serializer bundle you should disable its alias
+
+*app/config/config.yml*
+```yml
+jms_serializer:
+    enable_short_alias: false
+```
+
+Create Doctrine schema if needed
 ```bash
 $ php app/console doctrine:database:create
 $ php app/console doctrine:schema:create
 ```
 
-*...or update it*
+...or update it
 
 ```bash
 $ php app/console doctrine:schema:update --force
 ```
 
-*You're done. To test it try to access a configured URL and then add /inspect at the end to see the persisted requests. Logs are located in the log folder and named by default request_collector.log*
+You're done. To test it try to access a configured URL and then add /inspect at the end to see the persisted requests. Logs are located in the log folder and named by default request_collector.log
 
 
 ## Configuration
@@ -89,22 +99,20 @@ deuzu_request_collector:
 
 ## Extension
 
-*If you want to add your own custom service after the collect process all you have to do is to tag it like this :*
+If you want to add your own custom service after the collect process all you have to do is to tag it like this :
 ```yaml
 post_collect_handler.default:
     class: AppBundle\Service\CustomPostCollectHandler
     tags:
         - { name: post_collect_handler, alias: collector_name }
 ```
-*Your custom service must implements Deuzu\RequestCollectorBundle\PostCollectHandler\PostCollectHandlerInterface*
+Your custom service must implements Deuzu\RequestCollectorBundle\PostCollectHandler\PostCollectHandlerInterface
 
 
 ## TODO
-   * Unit tests
    * Menu with differents collectors
       * button to copy address which collects
       * Inspect all collector action
    * Improve templates
       * filters
    * Add translations (en only)
-   * Functionnal standalone tests ?
