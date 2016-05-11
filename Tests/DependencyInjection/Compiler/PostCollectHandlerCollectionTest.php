@@ -36,6 +36,7 @@ class PostCollectHandlerCollectionTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      * @expectedException \LogicException
+     * @expectedExceptionMessageRegExp /A post collect handler named test already exists/
      */
     public function itShouldRaiseAnException()
     {
