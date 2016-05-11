@@ -55,7 +55,7 @@ class Configuration implements ConfigurationInterface
                                     ->ifTrue(function ($v) {
                                         return $v['enabled'] && !isset($v['email']);
                                     })
-                                    ->thenInvalid('The child node "email" under the node "mail" of your collector must be configured.')
+                                    ->thenInvalid('The child node "email" under the node "mailer" of your collector must be configured.')
                                 ->end()
                                 ->addDefaultsIfNotSet()
                                 ->children()

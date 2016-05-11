@@ -53,9 +53,14 @@ class DeuzuRequestCollectorExtensionTest extends AbstractExtensionTestCase
     /**
      * @test
      */
-    public function itShouldLoadWithMultipleCollector()
+    public function itShouldLoadWithFullConfiguration()
     {
         $configuration = [
+            'assets' => [
+                'bootstrap3_css' => true,
+                'bootstrap3_js' => true,
+                'jquery' => true,
+            ],
             'collectors' => [
                 'test_collector' => [
                     'route_path' => '/test/collect',
@@ -89,7 +94,44 @@ class DeuzuRequestCollectorExtensionTest extends AbstractExtensionTestCase
         $this->assertContainerBuilderHasService('deuzu.request_collector.collector.mailer');
     }
 
-    // TODO handle error cases (ie mailer enabled with no email defined)
+    /**
+     * @test
+     */
+    public function itShouldLoadWithoutLogFile()
+    {
+        $configuration = [
+            'collectors' => [
+                'test_collector' => [
+                    'route_path' => '/test/collect',
+                    'logger' => [
+                        'enabled' => true,
+                    ],
+                ],
+            ],
+        ];
+
+        $this->load($configuration);
+    }
+
+    /**
+     * @test
+     * @expectedException \InvalidArgumentException
+     */
+    public function itShouldNotLoadWithoutEmail()
+    {
+        $configuration = [
+            'collectors' => [
+                'test_collector' => [
+                    'route_path' => '/test/collect',
+                    'mailer' => [
+                        'enabled' => true,
+                    ],
+                ],
+            ],
+        ];
+
+        $this->load($configuration);
+    }
 
     /**
      * {@inheritdoc}
