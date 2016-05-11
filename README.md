@@ -104,7 +104,7 @@ If you want to add your own custom service after the collect process all you hav
 post_collect_handler.default:
     class: AppBundle\Service\CustomPostCollectHandler
     tags:
-        - { name: post_collect_handler, alias: collector_name }
+        - { name: request_collector.post_collect_handler, alias: collector_name }
 ```
 Your custom service must implements Deuzu\RequestCollectorBundle\PostCollectHandler\PostCollectHandlerInterface
 
@@ -112,7 +112,6 @@ Your custom service must implements Deuzu\RequestCollectorBundle\PostCollectHand
 ## TODO
    * Menu with differents collectors
       * button to copy address which collects
-      * Inspect all collector action
    * Improve templates
       * filters
    * Add translations (en only)
