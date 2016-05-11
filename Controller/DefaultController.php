@@ -3,6 +3,7 @@
 namespace Deuzu\RequestCollectorBundle\Controller;
 
 use Deuzu\RequestCollectorBundle\Entity\RequestObject;
+use Deuzu\RequestCollectorBundle\Repository\RequestCollectorRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,12 +16,11 @@ use Symfony\Component\HttpFoundation\Response;
 class DefaultController extends Controller
 {
     /**
-     * @param Request $request
-     * @param string  $_collector
+     * @param string $_collector
      *
      * @return Response
      */
-    public function collectAction(Request $request, $_collector)
+    public function collectAction($_collector)
     {
         $requestObject = $this->get('deuzu.request_collector.request_provider')->createFromRequest($_collector);
         $requestCollectorParameters = $this->container->getParameter('deuzu_request_collector');
@@ -51,6 +51,7 @@ class DefaultController extends Controller
         }
 
         $page = $request->query->get('page', 1);
+        /** @var RequestCollectorRepository */
         $requestCollectorRepository = $this->getDoctrine()->getRepository(RequestObject::class);
         $requestCollectorParams = $this->container->getParameter('deuzu_request_collector');
 

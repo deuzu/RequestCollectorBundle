@@ -14,16 +14,16 @@ use Swift_Mailer;
  */
 class MailerCollectorTest extends \PHPUnit_Framework_TestCase
 {
-    /** @var Logger */
-    private $logger;
+    /** @var Swift_Mailer */
+    private $mailer;
 
-    /** @var Serializer */
-    private $serializer;
+    /** @var TwigEngine */
+    private $templating;
 
     /** @var RequestObject */
     private $requestObject;
 
-    /** @var LoggerCollector */
+    /** @var MailerCollector */
     private $collector;
 
     /**

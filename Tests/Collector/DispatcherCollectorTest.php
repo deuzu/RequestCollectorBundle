@@ -16,6 +16,15 @@ use Prophecy\Argument;
  */
 class DispatcherCollectorTest extends \PHPUnit_Framework_TestCase
 {
+    /** @var LoggerCollector */
+    private $logger;
+
+    /** @var PersisterCollector */
+    private $persister;
+
+    /** @var MailerCollector */
+    private $mailer;
+
     /**
      * Setup
      */

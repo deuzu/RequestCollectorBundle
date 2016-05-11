@@ -13,6 +13,11 @@ use Symfony\Bridge\Doctrine\ManagerRegistry;
 class PersisterCollector implements CollectorInterface
 {
     /**
+     * @var ManagerRegistry
+     */
+    private $doctrine;
+
+    /**
      * @param ManagerRegistry $doctrine
      */
     public function __construct(ManagerRegistry $doctrine)
