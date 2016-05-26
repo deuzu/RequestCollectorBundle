@@ -3,7 +3,7 @@ Request Collector Bundle
 
 [![Build Status](https://travis-ci.org/deuzu/RequestCollectorBundle.svg?branch=master)](https://travis-ci.org/deuzu/RequestCollectorBundle)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/deuzu/RequestCollectorBundle/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/deuzu/RequestCollectorBundle/?branch=master)
-[![Code Coverage](https://scrutinizer-ci.com/g/deuzu/RequestCollectorBundle/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/deuzu/RequestCollectorBundle/?branch=master)
+[![Code Coverage](https://scrutinizer-c/i.com/g/deuzu/RequestCollectorBundle/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/deuzu/RequestCollectorBundle/?branch=master)
 [![Latest Stable Version](https://poser.pugx.org/deuzu/request-collector-bundle/v/stable)](https://packagist.org/packages/deuzu/request-collector-bundle) [![Total Downloads](https://poser.pugx.org/deuzu/request-collector-bundle/downloads)](https://packagist.org/packages/deuzu/request-collector-bundle)
 [![License](https://poser.pugx.org/deuzu/request-collector-bundle/license)](https://packagist.org/packages/deuzu/request-collector-bundle)
 
@@ -69,7 +69,7 @@ $ php app/console doctrine:schema:create
 $ php app/console doctrine:schema:update --force
 ```
 
-You're done. To test it try to access a configured URL and then add /inspect at the end to see the persisted requests. Logs are located in the log folder and named by default request_collector.log
+You're done. To test it try to access a configured URL and then add __/inspect__ at the end to see the persisted requests. Logs are located in the log folder and named by default request_collector.log
 
 
 ## Configuration
