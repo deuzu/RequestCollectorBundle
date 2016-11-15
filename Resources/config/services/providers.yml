@@ -1,0 +1,5 @@
+services:
+    deuzu.request_collector.request_provider:
+        class: Deuzu\RequestCollectorBundle\Request\RequestObjectProvider
+        arguments:
+            - "@request_stack"

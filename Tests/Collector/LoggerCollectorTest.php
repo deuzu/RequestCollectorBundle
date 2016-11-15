@@ -4,6 +4,7 @@ namespace Deuzu\RequestCollectorBundle\Tests\Collector;
 
 use Deuzu\RequestCollectorBundle\Collector\LoggerCollector;
 use Deuzu\RequestCollectorBundle\Entity\RequestObject;
+use Deuzu\RequestCollectorBundle\Logger\LoggerContainer;
 use Prophecy\Argument;
 use Monolog\Logger;
 use Symfony\Component\Serializer\Serializer;
@@ -15,16 +16,29 @@ use Symfony\Component\Serializer\Serializer;
  */
 class LoggerCollectorTest extends \PHPUnit_Framework_TestCase
 {
-    /** @var Logger */
-    private $logger;
+    /**
+     * @var LoggerContainer
+     */
+    private $loggerContainer;
 
-    /** @var Serializer */
+    /**
+     * @var Logger
+     */
+    private $deprecatedLogger;
+
+    /**
+     * @var Serializer
+     */
     private $serializer;
 
-    /** @var RequestObject */
+    /**
+     * @var RequestObject
+     */
     private $requestObject;
 
-    /** @var LoggerCollector */
+    /**
+     * @var LoggerCollector
+     */
     private $collector;
 
     /**
@@ -32,36 +46,35 @@ class LoggerCollectorTest extends \PHPUnit_Framework_TestCase
      */
     public function setup()
     {
-        $this->logger = $this->prophesize(Logger::class);
+        $this->loggerContainer = $this->prophesize(LoggerContainer::class);
+        $this->deprecatedLogger = $this->prophesize(Logger::class);
         $this->serializer = $this->prophesize(Serializer::class);
         $logFolder = '.';
         $kernelEnvironment = 'test';
         $this->requestObject = new RequestObject();
 
         $this->collector = new LoggerCollector(
-            $this->logger->reveal(),
             $this->serializer->reveal(),
+            $this->loggerContainer->reveal(),
+            $this->deprecatedLogger->reveal(),
             $logFolder,
             $kernelEnvironment
         );
     }
+
     /**
      * @test
      */
     public function itShouldCollect()
     {
-        $this->serializer->normalize(Argument::any())->shouldBeCalled()->willReturn([]);
-        $this->logger->pushHandler(Argument::any())->shouldBeCalled()->willReturn(true);
-        $this->logger->info(Argument::type('string'), Argument::type('array'))->shouldBeCalled();
-        $this->collector->collect($this->requestObject, ['logFile' => 'test.log']);
-    }
+        $logger = $this->prophesize(Logger::class);
+        $this->loggerContainer->getByName('test')->willReturn($logger->reveal());
+        $this->serializer->normalize(Argument::any())->willReturn(['whatever' => true]);
+        $logger->info('request_collector.collect', ['whatever' => true]);
 
-    /**
-     * @test
-     * @expectedException Symfony\Component\OptionsResolver\Exception\MissingOptionsException
-     */
-    public function itShouldThrowAnException()
-    {
-        $this->collector->collect($this->requestObject, []);
+        $this->serializer->normalize(Argument::any())->willReturn([]);
+        $this->deprecatedLogger->pushHandler(Argument::any())->shouldBeCalled();
+        $this->deprecatedLogger->info(Argument::type('string'), [])->shouldBeCalled();
+        $this->collector->collect($this->requestObject, ['logFile' => 'test.log', 'channel' => 'test']);
     }
 }

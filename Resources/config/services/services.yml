@@ -1,0 +1,7 @@
+imports:
+    - { resource: services/collectors.yml }
+    - { resource: services/compilers.yml }
+    - { resource: services/loggers.yml }
+    - { resource: services/providers.yml }
+    - { resource: services/routings.yml }
+    - { resource: services/twigs.yml }

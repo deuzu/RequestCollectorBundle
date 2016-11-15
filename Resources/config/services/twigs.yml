@@ -1,0 +1,5 @@
+services:
+    deuzu.request_collector.twig_extension:
+        class:  Deuzu\RequestCollectorBundle\Twig\DeuzuRequestCollectorExtension
+        tags:
+            - { name: twig.extension }

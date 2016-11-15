@@ -3,6 +3,7 @@
 namespace Deuzu\RequestCollectorBundle\Collector;
 
 use Deuzu\RequestCollectorBundle\Entity\RequestObject;
+use Deuzu\RequestCollectorBundle\Logger\LoggerContainer;
 use Monolog\Handler\StreamHandler;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -15,30 +16,50 @@ use Symfony\Component\Serializer\SerializerInterface;
  */
 class LoggerCollector implements CollectorInterface
 {
-    /** @var LoggerInterface */
-    private $logger;
+    /**
+     * @var LoggerContainer
+     */
+    private $loggerContainer;
 
-    /** @var SerializerInterface */
+    /**
+     * @var LoggerInterface
+     */
+    private $deprecatedLogger;
+
+    /**
+     * @var SerializerInterface
+     */
     private $serializer;
 
-    /** @var string */
+    /**
+     * @var string
+     */
     private $logFolder;
 
-    /** @var string */
+    /**
+     * @var string
+     */
     private $kernelEnvironment;
 
     /**
-     * @param LoggerInterface     $logger
      * @param SerializerInterface $serializer
-     * @param string              $logFolder
-     * @param string              $kernelEnvironment
+     * @param LoggerContainer     $loggerContainer
+     * @param LoggerInterface     $deprecatedLogger  deprecated
+     * @param string              $logFolder         deprecated
+     * @param string              $kernelEnvironment deprecated
      */
-    public function __construct(LoggerInterface $logger, SerializerInterface $serializer, $logFolder, $kernelEnvironment)
-    {
-        $this->logger = $logger;
+    public function __construct(
+        SerializerInterface $serializer,
+        LoggerContainer $loggerContainer,
+        LoggerInterface $deprecatedLogger,
+        $logFolder,
+        $kernelEnvironment
+    ) {
         $this->serializer = $serializer;
-        $this->logFolder = $logFolder;
-        $this->kernelEnvironment = $kernelEnvironment;
+        $this->loggerContainer = $loggerContainer;
+        $this->deprecatedLogger = $deprecatedLogger; // deprecated
+        $this->logFolder = $logFolder; // deprecated
+        $this->kernelEnvironment = $kernelEnvironment; // deprecated
     }
 
     /**
@@ -46,23 +67,15 @@ class LoggerCollector implements CollectorInterface
      */
     public function collect(RequestObject $requestObject, array $parameters = [])
     {
-        $parameters = $this->resolveCollectorParameters($parameters);
-        $logFile = sprintf('%s/%s.%s', $this->logFolder, $this->kernelEnvironment, $parameters['logFile']);
+        if (!$parameters['logFile']) {
+            $logger = $this->loggerContainer->getByName($parameters['channel']);
+            $logger->info('request_collector.collect', $this->serializer->normalize($requestObject));
+        } else {
+            // deprecated
+            $logFile = sprintf('%s/%s.%s', $this->logFolder, $this->kernelEnvironment, $parameters['logFile']);
 
-        $this->logger->pushHandler(new StreamHandler($logFile));
-        $this->logger->info('request_collector.collect', $this->serializer->normalize($requestObject));
-    }
-
-    /**
-     * @param array $parameters
-     *
-     * @return array
-     */
-    private function resolveCollectorParameters(array $parameters = [])
-    {
-        $resolver = new OptionsResolver();
-        $resolver->setRequired(['logFile']);
-
-        return $resolver->resolve($parameters);
+            $this->deprecatedLogger->pushHandler(new StreamHandler($logFile));
+            $this->deprecatedLogger->info('request_collector.collect', $this->serializer->normalize($requestObject));
+        }
     }
 }

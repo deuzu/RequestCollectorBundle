@@ -1,0 +1,3 @@
+services:
+    deuzu.request_collector.logger.container:
+        class: Deuzu\RequestCollectorBundle\Logger\LoggerContainer
