@@ -3,6 +3,7 @@
 namespace Deuzu\RequestCollectorBundle\PostCollectHandler;
 
 use Deuzu\RequestCollectorBundle\Entity\RequestObject;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Interface PostCollectHandlerInterface.
