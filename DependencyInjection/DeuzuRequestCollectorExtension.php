@@ -26,9 +26,8 @@ class DeuzuRequestCollectorExtension extends Extension
         $container->setParameter('deuzu_request_collector', $config);
 
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
-        $loader->load('services.yml');
+        $loader->load('services/services.yml');
 
-        // @moulox
         $logger = false;
         $mailer = false;
         $persister = false;

@@ -47,7 +47,8 @@ class Configuration implements ConfigurationInterface
                                 ->addDefaultsIfNotSet()
                                 ->children()
                                     ->booleanNode('enabled')->defaultFalse()->end()
-                                    ->scalarNode('file')->defaultValue('request_collector.log')->end()
+                                    ->scalarNode('file')->end() // deprecated
+                                    ->scalarNode('channel')->defaultValue('main')->end()
                                 ->end()
                             ->end()
                             ->arrayNode('mailer')

@@ -1,0 +1,3 @@
+services:
+    deuzu.request_collector.post_collect_handler_collection:
+        class: Deuzu\RequestCollectorBundle\DependencyInjection\Compiler\PostCollectHandlerCollection

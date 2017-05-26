@@ -81,7 +81,7 @@ class DispatcherCollectorTest extends \PHPUnit_Framework_TestCase
         $this->mailer = $this->prophesize(MailerCollector::class);
 
         $configuration = [
-            'logger' => ['enabled' => true, 'file' => 'test.log'],
+            'logger' => ['enabled' => true, 'channel' => 'test', 'file' => 'test'],
             'persister' => ['enabled' => true],
             'mailer' => ['enabled' => true, 'email' => 'to@deuzu.com'],
         ];
@@ -93,7 +93,7 @@ class DispatcherCollectorTest extends \PHPUnit_Framework_TestCase
         ];
 
         $onlyLogConfiguration = [
-            'logger' => ['enabled' => true, 'file' => 'test.log'],
+            'logger' => ['enabled' => true, 'channel' => 'test', 'file' => 'test'],
             'persister' => ['enabled' => false],
             'mailer' => ['enabled' => false],
         ];

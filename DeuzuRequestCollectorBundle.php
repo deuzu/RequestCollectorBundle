@@ -2,9 +2,10 @@
 
 namespace Deuzu\RequestCollectorBundle;
 
+use Deuzu\RequestCollectorBundle\DependencyInjection\Compiler\LoggerPass;
+use Deuzu\RequestCollectorBundle\DependencyInjection\Compiler\PostCollectHandlerPass;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Deuzu\RequestCollectorBundle\DependencyInjection\Compiler\PostCollectHandlerPass;
 
 /**
  * Class DeuzuRequestCollectorBundle
@@ -21,5 +22,6 @@ class DeuzuRequestCollectorBundle extends Bundle
         parent::build($container);
 
         $container->addCompilerPass(new PostCollectHandlerPass());
+        $container->addCompilerPass(new LoggerPass());
     }
 }

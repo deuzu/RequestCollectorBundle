@@ -1,0 +1,6 @@
+services:
+    deuzu.request_collector.route_collector_loader:
+        class: Deuzu\RequestCollectorBundle\Routing\RouteCollectorLoader
+        arguments: [ "%deuzu_request_collector%" ]
+        tags:
+            - { name: routing.loader }
