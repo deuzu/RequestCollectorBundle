@@ -110,7 +110,7 @@ monolog:
 post_collect_handler.default:
     class: AppBundle\Service\CustomPostCollectHandler
     tags:
-        - { name: post_collect_handler, alias: collector_name }
+        - { name: request_collector.post_collect_handler, alias: collector_name }
 ```
 *Your custom service must implements Deuzu\RequestCollectorBundle\PostCollectHandler\PostCollectHandlerInterface*
 
